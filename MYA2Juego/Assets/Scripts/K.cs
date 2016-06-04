@@ -1,15 +1,11 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class K : MonoBehaviour {
+public class K
+{
+    // ===== INPUT =====
+    public const string INPUT_HORIZONTAL = "Horizontal";
+    public const string INPUT_VERTICAL = "Vertical";
 
-	// Use this for initialization
-	void Start () {
-	
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
+
 }
