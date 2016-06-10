@@ -11,6 +11,7 @@ public class InputControllerPlayer : MonoBehaviour
     void Awake()
     {
         _model = transform.GetComponent<SpriteRenderer>();
+        //Luego tienen que instanciarse en un pool
     }
 	void Start ()
     {
@@ -40,6 +41,18 @@ public class InputControllerPlayer : MonoBehaviour
         else if (transform.position.x + _model.bounds.size.x / 2 < -cameraWidth)
         transform.position = new Vector2(cameraWidth + _model.bounds.size.x / 2, transform.position.y);
 
-
+        if (Input.GetMouseButtonDown(0))
+        {
+            Fire();
+        }
+     
 	}
+
+    void Fire()
+    {
+        //Por ahora solo dispara Simple Bullets
+        GameObject newBullet;
+        newBullet=Instantiate<GameObject>(Factory.BulletFactory("Bullet"));
+        newBullet.transform.position = transform.position;
+    }
 }
