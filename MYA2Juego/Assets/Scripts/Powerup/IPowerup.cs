@@ -1,10 +1,25 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System;
 
-public class IPowerup : MonoBehaviour {
+public class IPowerup : MonoBehaviour, IReusable {
+    public void OnAcquire()
+    {
+        throw new NotImplementedException();
+    }
 
-	// Use this for initialization
-	void Start () {
+    public void OnCreate()
+    {
+        throw new NotImplementedException();
+    }
+
+    public void OnRelease()
+    {
+        throw new NotImplementedException();
+    }
+
+    // Use this for initialization
+    void Start () {
 	
 	}
 	

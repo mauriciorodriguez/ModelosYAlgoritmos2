@@ -1,7 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System;
 
-public class Asteroid : MonoBehaviour
+public class Asteroid : MonoBehaviour, IReusable
 {
     public static int _count = 0;
     public int hp;
@@ -9,8 +10,18 @@ public class Asteroid : MonoBehaviour
 
     private Vector3 _position, _rotation;
 
-    public Asteroid()
+    public void OnAcquire()
     {
-        gameObject.name = this.GetType().ToString() + ":" + (_count++);
+    }
+
+    public void OnRelease()
+    {
+    }
+
+    public void OnCreate()
+    {
+        gameObject.transform.parent = GameObject.FindGameObjectWithTag(K.TAG_ENEMIES).transform;
+        gameObject.SetActive(false);
+        gameObject.name += " : " + (_count++);
     }
 }

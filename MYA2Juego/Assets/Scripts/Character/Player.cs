@@ -6,7 +6,10 @@ public class Player : MonoBehaviour
 {
     public GameObject explosion;
     public float life;
+
     private GameObject _player;
+    private 
+
     void Awake()
     {
         _player = this.gameObject;

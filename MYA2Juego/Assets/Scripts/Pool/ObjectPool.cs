@@ -2,17 +2,19 @@
 using System.Collections;
 using System.Collections.Generic;
 
-public class ObjectPool<T>
+public class ObjectPool<T> where T : IReusable
 {
-    public delegate T FactoryDelegate();
+    public delegate GameObject FactoryDelegate();
 
-    private Stack<T> _objects;
+    private Stack<GameObject> _objects;
     private FactoryDelegate _factory;
+    private GameObject _containerGameObject;
 
-    public ObjectPool(FactoryDelegate factory, int quantity = 10)
+    public ObjectPool(FactoryDelegate factory, string containerN, int quantity = 5)
     {
-        _objects = new Stack<T>();
+        _objects = new Stack<GameObject>();
         _factory = factory;
+        _containerGameObject = GameObject.FindGameObjectWithTag(containerN);
         if (quantity >= 0)
         {
             for (int i = 0; i < quantity; i++)
@@ -23,25 +25,32 @@ public class ObjectPool<T>
 
     }
 
-    public T GetObject()
+    public GameObject GetObject()
     {
+        GameObject elem;
         if (_objects.Count > 0)
         {
-            return _objects.Pop();
+            elem = _objects.Pop();
         }
         else
         {
-            return Create();
+            elem = Create();
         }
+        Debug.Log(elem);
+        elem.GetComponent<T>().OnAcquire();
+        return elem;
     }
 
-    public void PutBackObject(T obj)
+    public void PutBackObject(GameObject obj)
     {
+        obj.GetComponent<T>().OnRelease();
         _objects.Push(obj);
     }
 
-    private T Create()
+    private GameObject Create()
     {
-        return _factory();
+        var elem = _factory();
+        elem.GetComponent<T>().OnCreate();
+        return elem;
     }
 }

@@ -1,24 +1,28 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System;
 
 public class InputControllerPlayer : MonoBehaviour
 {
     public float speed;
-    private Vector3 rotationVector;
     public float rotationSpeed;
-    private SpriteRenderer _model;
+    public string shootType { get; private set; }
 
-    void Awake()
+    private Vector3 rotationVector;
+    private SpriteRenderer _model;
+    private IStrategyShootType _shootTypeStrategy;
+    private PoolManager _poolManagerRef;
+
+    void Start()
     {
+        _poolManagerRef = GameObject.FindGameObjectWithTag(K.TAG_MANAGERS).GetComponent<PoolManager>();
         _model = transform.GetComponent<SpriteRenderer>();
+        shootType = K.SHOOT_TYPE_AUTOMATIC;
+        _shootTypeStrategy = new ShootTypeAutomatic(K.SHOOT_RATE_AUTOMATIC);
         //Luego tienen que instanciarse en un pool
     }
-	void Start ()
-    {
-	
-	}
-	
-	void Update ()
+
+    void Update()
     {
         //Movements     
         transform.position += Input.GetAxis(K.INPUT_VERTICAL) * speed * transform.up * Time.deltaTime;
@@ -30,29 +34,56 @@ public class InputControllerPlayer : MonoBehaviour
         float cameraWidth = Camera.main.orthographicSize * Camera.main.aspect;
 
         if (transform.position.y - _model.bounds.size.y / 2 > Camera.main.orthographicSize)
-        transform.position = new Vector2(transform.position.x, -Camera.main.orthographicSize - _model.bounds.size.y / 2);
+            transform.position = new Vector2(transform.position.x, -Camera.main.orthographicSize - _model.bounds.size.y / 2);
 
         else if (transform.position.y + _model.bounds.size.y / 2 < -Camera.main.orthographicSize)
-        transform.position = new Vector2(transform.position.x, Camera.main.orthographicSize + _model.bounds.size.y / 2);
+            transform.position = new Vector2(transform.position.x, Camera.main.orthographicSize + _model.bounds.size.y / 2);
 
         if (transform.position.x - _model.bounds.size.x / 2 > cameraWidth)
-        transform.position = new Vector2(-cameraWidth - _model.bounds.size.x / 2, transform.position.y);
+            transform.position = new Vector2(-cameraWidth - _model.bounds.size.x / 2, transform.position.y);
 
         else if (transform.position.x + _model.bounds.size.x / 2 < -cameraWidth)
-        transform.position = new Vector2(cameraWidth + _model.bounds.size.x / 2, transform.position.y);
+            transform.position = new Vector2(cameraWidth + _model.bounds.size.x / 2, transform.position.y);
 
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButton(0))
         {
             Fire();
         }
-     
-	}
+
+        ShootTypeSelection();
+        _shootTypeStrategy.Update();
+    }
+
+    private void ShootTypeSelection()
+    {
+        if (Input.GetKeyDown(KeyCode.Alpha1) || Input.GetKeyDown(KeyCode.Keypad1))
+        {
+            shootType = K.SHOOT_TYPE_AUTOMATIC;
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha2) || Input.GetKeyDown(KeyCode.Keypad2))
+        {
+            shootType = K.SHOOT_TYPE_LASER;
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha3) || Input.GetKeyDown(KeyCode.Keypad3))
+        {
+            shootType = K.SHOOT_TYPE_BOMB;
+        }
+    }
 
     void Fire()
     {
         //Por ahora solo dispara Simple Bullets
-        GameObject newBullet;
+        /*GameObject newBullet;
         newBullet=Instantiate<GameObject>(Factory.BulletFactory("Bullet"));
-        newBullet.transform.position = transform.position;
+        newBullet.transform.position = transform.position;*/
+        switch (shootType)
+        {
+            case K.SHOOT_TYPE_AUTOMATIC:
+                _shootTypeStrategy.SpawnBullet(transform, _poolManagerRef.poolBullets);
+                break;
+            default:
+                break;
+        }
+
     }
 }
