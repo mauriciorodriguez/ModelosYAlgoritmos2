@@ -8,3 +8,6 @@ CONFIGURACION DE UNITY PARA USAR CON GITHUB
 
 CONSIGNA:
 https://docs.google.com/spreadsheets/d/1UWrYwjar4UYtBgygKT0Mc90kDWTL_j_nV3wNQmrCuWw/edit#gid=1237941472
+
+Ejemplos pattern:
+http://pastebin.com/CsfCCw0T
