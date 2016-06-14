@@ -6,7 +6,7 @@ TagManager:
   tags:
   - Managers
   - Enemies
-  - Bullets
+  - Ammo
   - Powerups
   layers:
   - Default

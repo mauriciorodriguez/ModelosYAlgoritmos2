@@ -14,15 +14,6 @@ public class Player : MonoBehaviour
     {
         _player = this.gameObject;
     }
-	void Start ()
-    {
-	
-	}
-	
-	void Update ()
-    {
-	
-	}
 
     void OnCollisionEnter2D(Collision2D coll)
     {

@@ -4,5 +4,5 @@ using System.Collections;
 public interface IStrategyShootType
 {
     void Update();
-    void SpawnBullet(Transform position, ObjectPool<Bullet> bulletPool);
+    void SpawnBullet(Transform playerTransform, ObjectPool<Ammo> bulletPool);
 }

@@ -709,8 +709,8 @@ GameObject:
   m_Component:
   - 4: {fileID: 1348560463}
   m_Layer: 0
-  m_Name: Bullets
-  m_TagString: Bullets
+  m_Name: Ammo
+  m_TagString: Ammo
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -941,6 +941,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 60a469d8d64b4954289c34d64245d82e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  speed: 0
+  lifeTime: 0
   laserDistance: 5
 --- !u!120 &1490436292
 LineRenderer:
@@ -1091,6 +1093,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   prefabBullet: {fileID: 115488, guid: ea8108b45b39a614894eb7eddad14b3c, type: 2}
+  prefabBomb: {fileID: 103962, guid: b97a2a7bd26dd1d42b1218af395e98bd, type: 2}
   prefabSmallEnemy: {fileID: 158436, guid: 8ee3510541bf36147b1eb1660c1948ab, type: 2}
   prefabMediumEnemy: {fileID: 127502, guid: 3bcc3113cf7fdad4983dedc04e4d3ed1, type: 2}
   prefabBigEnemy: {fileID: 123524, guid: aac9a539417991b4a92fab437ceea1cb, type: 2}

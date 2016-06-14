@@ -36,7 +36,6 @@ public class ObjectPool<T> where T : IReusable
         {
             elem = Create();
         }
-        Debug.Log(elem);
         elem.GetComponent<T>().OnAcquire();
         return elem;
     }

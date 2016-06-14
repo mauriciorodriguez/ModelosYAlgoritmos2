@@ -15,7 +15,7 @@ public class K
     public const string TAG_PLAYER = "Player";
     public const string TAG_MANAGERS = "Managers";
     public const string TAG_ENEMIES = "Enemies";
-    public const string TAG_BULLETS = "Bullets";
+    public const string TAG_AMMO = "Ammo";
     public const string TAG_POWERUPS = "Powerups";
 
     // ===== SHOOT TYPE =====
@@ -23,9 +23,9 @@ public class K
     public const string SHOOT_TYPE_LASER = "Laser";
     public const string SHOOT_TYPE_BOMB = "Bomb";
 
-    // ===== SHOOT RATE =====
+    // ===== BULLETS CONFIG =====
     public const float SHOOT_RATE_AUTOMATIC = 0.25f;
-
-    // ===== BULLET LIFE TIME =====
+    public const float SHOOT_RATE_BOMB = 0.5f;
     public const float BULLET_LIFETIME = 2f;
+    public const float LASER_MAX_DISTANCE = 5;
 }

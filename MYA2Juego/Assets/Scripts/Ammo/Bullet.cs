@@ -2,28 +2,12 @@
 using System.Collections;
 using System;
 
-public class Bullet : MonoBehaviour, IReusable
+public class Bullet : Ammo, IReusable
 {
-    public float speed;
-    public float lifeTime;
-
-    private float _currentLifetime;
-
-    public void OnAcquire()
+    public override void OnAcquire()
     {
-        gameObject.SetActive(true);
+        base.OnAcquire();
         _currentLifetime = lifeTime;
-    }
-
-    public void OnCreate()
-    {
-        transform.parent = GameObject.FindGameObjectWithTag(K.TAG_BULLETS).transform;
-        gameObject.SetActive(false);
-    }
-
-    public void OnRelease()
-    {
-        gameObject.SetActive(false);
     }
 
     /*void OnEnable()
@@ -39,14 +23,10 @@ public class Bullet : MonoBehaviour, IReusable
         transform.LookAt(Vector3.forward, Vector3.Cross(Vector3.forward, mousePosition));
     }*/
 
-    void Update()
+    protected override void Update()
     {
         //transform.Translate(transform.up * speed * Time.deltaTime);
         transform.position += transform.up * speed * Time.deltaTime;
-        _currentLifetime -= Time.deltaTime;
-        if (_currentLifetime <= 0)
-        {
-            GameObject.FindGameObjectWithTag(K.TAG_MANAGERS).GetComponent<PoolManager>().poolBullets.PutBackObject(gameObject);
-        }
+        base.Update();
     }
 }
