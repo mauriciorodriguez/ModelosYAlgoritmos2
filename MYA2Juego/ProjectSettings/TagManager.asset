@@ -19,11 +19,11 @@ TagManager:
   - 
   - Player
   - Asteroid
-  - 
-  - 
-  - 
-  - 
-  - 
+  - BlackHole
+  - Bullet
+  - SmallAsteroid
+  - MediumAsteroid
+  - BigAsteroid
   - 
   - 
   - 

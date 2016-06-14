@@ -17,6 +17,6 @@ public class PoolManager : MonoBehaviour
         poolBombs = new ObjectPool<Ammo>(() => Instantiate(prefabBomb), K.TAG_AMMO);
         poolSmallEnemies = new ObjectPool<Asteroid>(() => Instantiate(prefabSmallEnemy), K.TAG_ENEMIES);
         poolMediumEnemies = new ObjectPool<Asteroid>(() => Instantiate(prefabMediumEnemy), K.TAG_ENEMIES);
-        poolBigEnemies = new ObjectPool<Asteroid>(() => Instantiate(prefabSmallEnemy), K.TAG_ENEMIES);
+        poolBigEnemies = new ObjectPool<Asteroid>(() => Instantiate(prefabBigEnemy), K.TAG_ENEMIES);
     }
 }

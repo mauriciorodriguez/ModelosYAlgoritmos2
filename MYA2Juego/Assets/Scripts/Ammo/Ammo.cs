@@ -4,8 +4,7 @@ using System;
 
 public abstract class Ammo : MonoBehaviour, IReusable
 {
-    public float speed;
-    public float lifeTime;
+    public float speed, lifeTime, damage;
 
     protected float _currentLifetime;
 

@@ -10,6 +10,11 @@ public class K
     // ===== LAYERS =====
     public const int LAYER_PLAYER= 8;
     public const int LAYER_ASTEROID = 9;
+    public const int LAYER_BLACKHOLE = 10;
+    public const int LAYER_BULLET = 11;
+    public const int LAYER_SMALL_ASTEROID = 12;
+    public const int LAYER_MEDIUM_ASTEROID = 13;
+    public const int LAYER_BIG_ASTEROID = 14;
 
     // ===== TAGS =====
     public const string TAG_PLAYER = "Player";
@@ -28,4 +33,8 @@ public class K
     public const float SHOOT_RATE_BOMB = 0.5f;
     public const float BULLET_LIFETIME = 2f;
     public const float LASER_MAX_DISTANCE = 5;
+
+    // ===== ASTEROIDS COUNT =====
+    public const int ASTEROIDS_COUNT_LEVEL1 = 20;
+    public const float ASTEROIDS_SPAWN_TIMER = 5f;
 }
