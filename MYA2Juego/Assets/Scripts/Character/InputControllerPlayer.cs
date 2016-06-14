@@ -12,6 +12,7 @@ public class InputControllerPlayer : MonoBehaviour
     private SpriteRenderer _model;
     private IStrategyShootType _shootTypeStrategy;
     private PoolManager _poolManagerRef;
+    public GameObject _laser;
 
     void Start()
     {
@@ -45,10 +46,9 @@ public class InputControllerPlayer : MonoBehaviour
         else if (transform.position.x + _model.bounds.size.x / 2 < -cameraWidth)
             transform.position = new Vector2(cameraWidth + _model.bounds.size.x / 2, transform.position.y);
 
-        if (Input.GetMouseButton(0))
-        {
-            Fire();
-        }
+        if (Input.GetKeyDown(KeyCode.Space)) Fire();
+        else if (Input.GetKey(KeyCode.F)) _laser.SetActive(true);
+        else _laser.SetActive(false);
 
         ShootTypeSelection();
         _shootTypeStrategy.Update();

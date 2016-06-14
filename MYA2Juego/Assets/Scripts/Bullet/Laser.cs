@@ -9,7 +9,7 @@ public class Laser : MonoBehaviour
 
     void Awake()
     {
-        line = GetComponentInChildren<LineRenderer>();
+        line = GetComponent<LineRenderer>();
     }
     private void Start()
     {
