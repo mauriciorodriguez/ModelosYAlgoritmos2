@@ -10,7 +10,7 @@ public class MenuScreen : MonoBehaviour, IScreen
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space)) StartGame();
+        if (Input.GetKeyDown(KeyCode.Return)) StartGame();
     }
     public void StartGame()
     {

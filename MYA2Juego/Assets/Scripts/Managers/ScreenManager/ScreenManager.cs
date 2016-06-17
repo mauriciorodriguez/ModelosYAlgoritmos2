@@ -6,15 +6,14 @@ using System;
 public class ScreenManager : MonoBehaviour
 {
     public GameObject prefabMenuPpal;
+    Stack<StackPart> _screenStack;
+    public static ScreenManager instance { get; private set; }
     class StackPart
     {
         public IScreen screen;
         public bool deactivated;
     }
-    Stack<StackPart> _screenStack;
 
-
-    public static ScreenManager instance { get; private set; }
     void Awake()
     {
         Debug.Assert(instance == null);
@@ -39,8 +38,8 @@ public class ScreenManager : MonoBehaviour
         {
             if (deactivateLower) _screenStack.Peek().screen.GetGameObject().SetActive(false);
             else SetUpdate(_screenStack.Peek().screen.GetGameObject(), false);
-
         }
+
         var part = new StackPart();
         part.screen = screen;
         part.deactivated = deactivateLower;
@@ -48,8 +47,7 @@ public class ScreenManager : MonoBehaviour
     }
     void SetUpdate(GameObject go, bool value)
     {
-        foreach (var c in go.GetComponentsInChildren<MonoBehaviour>())
-            c.enabled = value;
+        foreach (var c in go.GetComponentsInChildren<MonoBehaviour>()) c.enabled = value;
     }
 
     public void PopScreen()
@@ -59,14 +57,11 @@ public class ScreenManager : MonoBehaviour
         if (_screenStack.Count > 1)
         {
             var part = _screenStack.Peek();
-            Debug.Log("DEstroy");
+            Debug.Log("Destroy");
             _screenStack.Pop();
-            if (part.deactivated)
-                _screenStack.Peek().screen.GetGameObject().SetActive(true);
-            else
-                SetUpdate(_screenStack.Peek().screen.GetGameObject(), true);
+            if (part.deactivated) _screenStack.Peek().screen.GetGameObject().SetActive(true);
+            else SetUpdate(_screenStack.Peek().screen.GetGameObject(), true);
             GameObject.DestroyObject(part.screen.GetGameObject());
-
         }
     }
 }
