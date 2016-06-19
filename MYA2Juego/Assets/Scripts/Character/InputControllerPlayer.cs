@@ -16,18 +16,18 @@ public class InputControllerPlayer : MonoBehaviour
 
     void Start()
     {
-        _poolManagerRef = GameObject.FindGameObjectWithTag(K.TAG_MANAGERS).GetComponent<PoolManager>();
+        _poolManagerRef = GameObject.FindGameObjectWithTag(Config.TAG_MANAGERS).GetComponent<PoolManager>();
         _model = transform.GetComponent<SpriteRenderer>();
-        shootType = K.SHOOT_TYPE_AUTOMATIC;
-        _shootTypeStrategy = new ShootTypeAutomatic(K.SHOOT_RATE_AUTOMATIC);
+        shootType = Config.SHOOT_TYPE_AUTOMATIC;
+        _shootTypeStrategy = new ShootTypeAutomatic(Config.SHOOT_RATE_AUTOMATIC);
         //Luego tienen que instanciarse en un pool
     }
 
     void Update()
     {
         //Movements     
-        transform.position += Input.GetAxis(K.INPUT_VERTICAL) * speed * transform.up * Time.deltaTime;
-        rotationVector.z = rotationSpeed * -Input.GetAxis(K.INPUT_HORIZONTAL);
+        transform.position += Input.GetAxis(Config.INPUT_VERTICAL) * speed * transform.up * Time.deltaTime;
+        rotationVector.z = rotationSpeed * -Input.GetAxis(Config.INPUT_HORIZONTAL);
         transform.Rotate(rotationVector * Time.deltaTime);
 
 
@@ -58,18 +58,21 @@ public class InputControllerPlayer : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Alpha1) || Input.GetKeyDown(KeyCode.Keypad1))
         {
-            shootType = K.SHOOT_TYPE_AUTOMATIC;
-            _shootTypeStrategy = new ShootTypeAutomatic(K.SHOOT_RATE_AUTOMATIC);
+            _shootTypeStrategy = null;
+            shootType = Config.SHOOT_TYPE_AUTOMATIC;
+            _shootTypeStrategy = Factory.GetShootStrategy(shootType);
         }
         if (Input.GetKeyDown(KeyCode.Alpha2) || Input.GetKeyDown(KeyCode.Keypad2))
         {
-            _shootTypeStrategy = new ShootTypeLaser();
-            shootType = K.SHOOT_TYPE_LASER;
+            _shootTypeStrategy = null;
+            shootType = Config.SHOOT_TYPE_LASER;
+            _shootTypeStrategy = Factory.GetShootStrategy(shootType);
         }
         if (Input.GetKeyDown(KeyCode.Alpha3) || Input.GetKeyDown(KeyCode.Keypad3))
         {
-            shootType = K.SHOOT_TYPE_BOMB;
-            _shootTypeStrategy = new ShootTypeBomb(K.SHOOT_RATE_BOMB);
+            _shootTypeStrategy = null;
+            shootType = Config.SHOOT_TYPE_BOMB;
+            _shootTypeStrategy = Factory.GetShootStrategy(shootType);
         }
     }
 
@@ -81,13 +84,13 @@ public class InputControllerPlayer : MonoBehaviour
         newBullet.transform.position = transform.position;*/
         switch (shootType)
         {
-            case K.SHOOT_TYPE_AUTOMATIC:
+            case Config.SHOOT_TYPE_AUTOMATIC:
                 _shootTypeStrategy.SpawnBullet(transform, _poolManagerRef.poolBullets);
                 break;
-            case K.SHOOT_TYPE_LASER:
+            case Config.SHOOT_TYPE_LASER:
                 _shootTypeStrategy.SpawnBullet(transform, _poolManagerRef.poolBullets);
                 break;
-            case K.SHOOT_TYPE_BOMB:
+            case Config.SHOOT_TYPE_BOMB:
                 _shootTypeStrategy.SpawnBullet(transform, _poolManagerRef.poolBombs);
                 break;
             default:

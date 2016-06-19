@@ -28,5 +28,9 @@ public class Bullet : Ammo, IReusable
         //transform.Translate(transform.up * speed * Time.deltaTime);
         transform.position += transform.up * speed * Time.deltaTime;
         base.Update();
+        if (_currentLifetime <= 0)
+        {
+            GameObject.FindGameObjectWithTag(Config.TAG_MANAGERS).GetComponent<PoolManager>().poolBullets.PutBackObject(gameObject);
+        }
     }
 }

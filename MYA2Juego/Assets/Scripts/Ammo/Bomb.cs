@@ -8,5 +8,9 @@ public class Bomb : Ammo
     {
         transform.position += transform.up * speed * Time.deltaTime;
         base.Update();
+        if (_currentLifetime <= 0)
+        {
+            GameObject.FindGameObjectWithTag(Config.TAG_MANAGERS).GetComponent<PoolManager>().poolBombs.PutBackObject(gameObject);
+        }
     }
 }

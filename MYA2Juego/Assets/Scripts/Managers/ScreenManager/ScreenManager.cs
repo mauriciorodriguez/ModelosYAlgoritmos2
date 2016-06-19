@@ -8,6 +8,7 @@ public class ScreenManager : MonoBehaviour
     public GameObject prefabMenuPpal;
     Stack<StackPart> _screenStack;
     public static ScreenManager instance { get; private set; }
+
     class StackPart
     {
         public IScreen screen;

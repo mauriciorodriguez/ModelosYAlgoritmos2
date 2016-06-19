@@ -17,7 +17,7 @@ public class Player : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D coll)
     {
-        if (coll.gameObject.layer == K.LAYER_ASTEROID)
+        if (coll.gameObject.layer == Config.LAYER_ASTEROID)
         {
           //  Destroy(gameObject);
              Color tmp = _player.GetComponent<SpriteRenderer>().color;

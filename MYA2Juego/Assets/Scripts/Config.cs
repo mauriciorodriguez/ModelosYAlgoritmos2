@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class K
+public class Config
 {
     // ===== INPUT =====
     public const string INPUT_HORIZONTAL = "Horizontal";

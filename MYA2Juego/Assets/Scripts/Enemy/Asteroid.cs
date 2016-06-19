@@ -28,7 +28,7 @@ public class Asteroid : MonoBehaviour, IReusable
 
     public void OnCreate()
     {
-        gameObject.transform.parent = GameObject.FindGameObjectWithTag(K.TAG_ENEMIES).transform;
+        gameObject.transform.parent = GameObject.FindGameObjectWithTag(Config.TAG_ENEMIES).transform;
         gameObject.SetActive(false);
         gameObject.name += " : " + (_count++);
     }
@@ -40,14 +40,14 @@ public class Asteroid : MonoBehaviour, IReusable
         {
             switch (gameObject.layer)
             {
-                case K.LAYER_SMALL_ASTEROID:
-                    GameObject.FindGameObjectWithTag(K.TAG_MANAGERS).GetComponent<PoolManager>().poolSmallEnemies.PutBackObject(gameObject);
+                case Config.LAYER_SMALL_ASTEROID:
+                    GameObject.FindGameObjectWithTag(Config.TAG_MANAGERS).GetComponent<PoolManager>().poolSmallEnemies.PutBackObject(gameObject);
                     break;
-                case K.LAYER_MEDIUM_ASTEROID:
-                    GameObject.FindGameObjectWithTag(K.TAG_MANAGERS).GetComponent<PoolManager>().poolMediumEnemies.PutBackObject(gameObject);
+                case Config.LAYER_MEDIUM_ASTEROID:
+                    GameObject.FindGameObjectWithTag(Config.TAG_MANAGERS).GetComponent<PoolManager>().poolMediumEnemies.PutBackObject(gameObject);
                     break;
-                case K.LAYER_BIG_ASTEROID:
-                    GameObject.FindGameObjectWithTag(K.TAG_MANAGERS).GetComponent<PoolManager>().poolBigEnemies.PutBackObject(gameObject);
+                case Config.LAYER_BIG_ASTEROID:
+                    GameObject.FindGameObjectWithTag(Config.TAG_MANAGERS).GetComponent<PoolManager>().poolBigEnemies.PutBackObject(gameObject);
                     break;
                 default:
                     break;
@@ -72,12 +72,12 @@ public class Asteroid : MonoBehaviour, IReusable
 
     private void OnTriggerEnter2D(Collider2D col)
     {
-        if (col.gameObject.layer == K.LAYER_BULLET)
+        if (col.gameObject.layer == Config.LAYER_BULLET)
         {
             hp -= col.GetComponent<Ammo>().damage;
-            GameObject.FindGameObjectWithTag(K.TAG_MANAGERS).GetComponent<PoolManager>().poolBullets.PutBackObject(col.gameObject);
+            GameObject.FindGameObjectWithTag(Config.TAG_MANAGERS).GetComponent<PoolManager>().poolBullets.PutBackObject(col.gameObject);
         }
-        else if (col.gameObject.tag == K.TAG_ENEMIES)
+        else if (col.gameObject.tag == Config.TAG_ENEMIES)
         {
             transform.up *= -1;
         }

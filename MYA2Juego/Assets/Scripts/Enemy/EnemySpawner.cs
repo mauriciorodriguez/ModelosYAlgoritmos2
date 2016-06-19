@@ -3,7 +3,7 @@ using System.Collections;
 
 public class EnemySpawner : MonoBehaviour
 {
-    public static int asteroidsCount = K.ASTEROIDS_COUNT_LEVEL1;
+    public static int asteroidsCount = Config.ASTEROIDS_COUNT_LEVEL1;
 
     private float _timer;
     private ObjectPool<Asteroid>[] _poolManagerRef;
@@ -11,9 +11,9 @@ public class EnemySpawner : MonoBehaviour
     private void Start()
     {
         _poolManagerRef = new ObjectPool<Asteroid>[3];
-        _poolManagerRef[0] = GameObject.FindGameObjectWithTag(K.TAG_MANAGERS).GetComponent<PoolManager>().poolSmallEnemies;
-        _poolManagerRef[1] = GameObject.FindGameObjectWithTag(K.TAG_MANAGERS).GetComponent<PoolManager>().poolMediumEnemies;
-        _poolManagerRef[2] = GameObject.FindGameObjectWithTag(K.TAG_MANAGERS).GetComponent<PoolManager>().poolBigEnemies;
+        _poolManagerRef[0] = GameObject.FindGameObjectWithTag(Config.TAG_MANAGERS).GetComponent<PoolManager>().poolSmallEnemies;
+        _poolManagerRef[1] = GameObject.FindGameObjectWithTag(Config.TAG_MANAGERS).GetComponent<PoolManager>().poolMediumEnemies;
+        _poolManagerRef[2] = GameObject.FindGameObjectWithTag(Config.TAG_MANAGERS).GetComponent<PoolManager>().poolBigEnemies;
     }
 
     private void Update()
@@ -21,7 +21,7 @@ public class EnemySpawner : MonoBehaviour
         _timer -= Time.deltaTime;
         if (_timer <= 0 && asteroidsCount > 0)
         {
-            _timer = K.ASTEROIDS_SPAWN_TIMER;
+            _timer = Config.ASTEROIDS_SPAWN_TIMER;
             SpawnEnemy();
         }
     }
