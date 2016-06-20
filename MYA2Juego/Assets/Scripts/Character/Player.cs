@@ -23,6 +23,7 @@ public class Player : MonoBehaviour
             lifesIcon[life - 1].gameObject.SetActive(false);
             life -= dmg;
         }
+        if(life == 0) Destroy(this.gameObject);
     }
 
     /*void OnTriggerEnter2D(Collider2D coll)
