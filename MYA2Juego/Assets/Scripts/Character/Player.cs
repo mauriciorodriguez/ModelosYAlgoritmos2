@@ -5,18 +5,24 @@ using System.Collections.Generic;
 public class Player : MonoBehaviour
 {
     public GameObject explosion;
-    public int life = Config.PLAYER_LIFES;
+    public int life;
 
     private GameObject _player;
+    public List<GameObject> lifesIcon;
 
     void Awake()
     {
         _player = this.gameObject;
+        life = Config.PLAYER_LIFES;
     }
 
     public void SetLife(int dmg)
     {
-        life -= dmg;
+        if (life > 0)
+        {
+            lifesIcon[life - 1].gameObject.SetActive(false);
+            life -= dmg;
+        }
     }
 
     /*void OnTriggerEnter2D(Collider2D coll)

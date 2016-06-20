@@ -12,7 +12,7 @@ public class Asteroid : MonoBehaviour, IReusable, IDecoratorAsteroid
     private Vector3 _position, _rotation;
     private SpriteRenderer _model;
     private IDecoratorAsteroid _decorator;
-
+    public GameObject explosion;
     private void Start()
     {
         _model = GetComponent<SpriteRenderer>();
@@ -51,12 +51,18 @@ public class Asteroid : MonoBehaviour, IReusable, IDecoratorAsteroid
             {
                 case Config.LAYER_SMALL_ASTEROID:
                     GameObject.FindGameObjectWithTag(Config.TAG_MANAGERS).GetComponent<PoolManager>().poolSmallEnemies.PutBackObject(gameObject);
+                    var _exploSmall = Instantiate(explosion, transform.position, Quaternion.identity);
+                    Destroy(_exploSmall, 2);
                     break;
                 case Config.LAYER_MEDIUM_ASTEROID:
                     GameObject.FindGameObjectWithTag(Config.TAG_MANAGERS).GetComponent<PoolManager>().poolMediumEnemies.PutBackObject(gameObject);
+                    var _exploMedium = Instantiate(explosion, transform.position, Quaternion.identity);
+                    Destroy(_exploMedium, 2);
                     break;
                 case Config.LAYER_BIG_ASTEROID:
                     GameObject.FindGameObjectWithTag(Config.TAG_MANAGERS).GetComponent<PoolManager>().poolBigEnemies.PutBackObject(gameObject);
+                    var _exploBig = Instantiate(explosion, transform.position, Quaternion.identity);
+                    Destroy(_exploBig, 2);
                     break;
                 default:
                     break;
@@ -88,10 +94,13 @@ public class Asteroid : MonoBehaviour, IReusable, IDecoratorAsteroid
         {
             hp -= col.GetComponent<Ammo>().damage;
             GameObject.FindGameObjectWithTag(Config.TAG_MANAGERS).GetComponent<PoolManager>().poolBullets.PutBackObject(col.gameObject);
+            print("1");
         }
         else if (col.gameObject.layer == Config.LAYER_PLAYER)
         {
+            print("2");
             col.GetComponent<Player>().SetLife(damage);
+
             switch (gameObject.layer)
             {
                 case Config.LAYER_SMALL_ASTEROID:
