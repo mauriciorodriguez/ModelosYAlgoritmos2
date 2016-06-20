@@ -671,7 +671,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   explosion: {fileID: 167362, guid: 17645985b5a36944486d6cebef944b50, type: 2}
-  life: 3
+  life: 0
 --- !u!114 &11432062
 MonoBehaviour:
   m_ObjectHideFlags: 1

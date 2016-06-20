@@ -13,10 +13,25 @@ public class PoolManager : MonoBehaviour
 
     private void Awake()
     {
-        poolBullets = new ObjectPool<Ammo>(() => Instantiate(prefabBullet), Config.TAG_AMMO, 10);
+        poolBullets = new ObjectPool<Ammo>(() => Instantiate(prefabBullet), Config.TAG_AMMO);
         poolBombs = new ObjectPool<Ammo>(() => Instantiate(prefabBomb), Config.TAG_AMMO);
-        poolSmallEnemies = new ObjectPool<Asteroid>(() => Instantiate(prefabSmallEnemy), Config.TAG_ENEMIES);
-        poolMediumEnemies = new ObjectPool<Asteroid>(() => Instantiate(prefabMediumEnemy), Config.TAG_ENEMIES);
-        poolBigEnemies = new ObjectPool<Asteroid>(() => Instantiate(prefabBigEnemy), Config.TAG_ENEMIES);
+        poolSmallEnemies = new ObjectPool<Asteroid>(() => Instantiate(prefabSmallEnemy), Config.TAG_ENEMIES, SetSmallEnemiesDecorators());
+        poolMediumEnemies = new ObjectPool<Asteroid>(() => Instantiate(prefabMediumEnemy), Config.TAG_ENEMIES, SetMediumEnemiesDecorators());
+        poolBigEnemies = new ObjectPool<Asteroid>(() => Instantiate(prefabBigEnemy), Config.TAG_ENEMIES, SetBigEnemiesDecorators());
+    }
+
+    private IDecoratorAsteroid SetSmallEnemiesDecorators()
+    {
+        return new DecoratorAsteroidZigZag(); // TODO
+    }
+
+    private IDecoratorAsteroid SetMediumEnemiesDecorators()
+    {
+        return null; // TODO
+    }
+
+    private IDecoratorAsteroid SetBigEnemiesDecorators()
+    {
+        return null; // TODO
     }
 }

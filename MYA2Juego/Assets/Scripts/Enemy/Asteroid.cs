@@ -2,14 +2,16 @@
 using System.Collections;
 using System;
 
-public class Asteroid : MonoBehaviour, IReusable
+public class Asteroid : MonoBehaviour, IReusable, IDecoratorAsteroid
 {
     public static int _count = 0;
     public float hp, speed;
+    public int damage = 1;
     public bool isOutOfScreen { private set; get; }
 
     private Vector3 _position, _rotation;
     private SpriteRenderer _model;
+    private IDecoratorAsteroid _decorator;
 
     private void Start()
     {
@@ -35,7 +37,14 @@ public class Asteroid : MonoBehaviour, IReusable
 
     private void Update()
     {
-        transform.position += transform.up * speed * Time.deltaTime;
+        Execute(gameObject);
+        if (_decorator != null) _decorator.Execute(gameObject);
+        CheckScreenBorder();
+        CheckHP();
+    }
+
+    private void CheckHP()
+    {
         if (hp <= 0)
         {
             switch (gameObject.layer)
@@ -53,7 +62,10 @@ public class Asteroid : MonoBehaviour, IReusable
                     break;
             }
         }
+    }
 
+    private void CheckScreenBorder()
+    {
         //Screen Limits
         float cameraWidth = Camera.main.orthographicSize * Camera.main.aspect;
 
@@ -77,9 +89,37 @@ public class Asteroid : MonoBehaviour, IReusable
             hp -= col.GetComponent<Ammo>().damage;
             GameObject.FindGameObjectWithTag(Config.TAG_MANAGERS).GetComponent<PoolManager>().poolBullets.PutBackObject(col.gameObject);
         }
+        else if (col.gameObject.layer == Config.LAYER_PLAYER)
+        {
+            col.GetComponent<Player>().SetLife(damage);
+            switch (gameObject.layer)
+            {
+                case Config.LAYER_SMALL_ASTEROID:
+                    GameObject.FindGameObjectWithTag(Config.TAG_MANAGERS).GetComponent<PoolManager>().poolSmallEnemies.PutBackObject(gameObject);
+                    break;
+                case Config.LAYER_MEDIUM_ASTEROID:
+                    GameObject.FindGameObjectWithTag(Config.TAG_MANAGERS).GetComponent<PoolManager>().poolMediumEnemies.PutBackObject(gameObject);
+                    break;
+                case Config.LAYER_BIG_ASTEROID:
+                    GameObject.FindGameObjectWithTag(Config.TAG_MANAGERS).GetComponent<PoolManager>().poolBigEnemies.PutBackObject(gameObject);
+                    break;
+                default:
+                    break;
+            }
+        }
         else if (col.gameObject.tag == Config.TAG_ENEMIES)
         {
             transform.up *= -1;
         }
+    }
+
+    public void SetDecorator(IDecoratorAsteroid decorator)
+    {
+        _decorator = decorator;
+    }
+
+    public void Execute(GameObject go)
+    {
+        transform.position += transform.up * speed * Time.deltaTime;
     }
 }

@@ -11,7 +11,7 @@ GameObject:
   - 212: {fileID: 21291830}
   - 61: {fileID: 6195232}
   - 114: {fileID: 11497064}
-  - 50: {fileID: 5075082}
+  - 50: {fileID: 5021122}
   m_Layer: 14
   m_Name: EnemyBig
   m_TagString: Enemies
@@ -31,7 +31,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
---- !u!50 &5075082
+--- !u!50 &5021122
 Rigidbody2D:
   serializedVersion: 2
   m_ObjectHideFlags: 1

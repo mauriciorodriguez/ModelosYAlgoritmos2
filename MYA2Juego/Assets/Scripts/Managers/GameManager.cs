@@ -12,4 +12,9 @@ public class GameManager : MonoBehaviour
         Factory.AddShootStrategy(Config.SHOOT_TYPE_LASER, new ShootTypeLaser());
         Factory.AddShootStrategy(Config.SHOOT_TYPE_BOMB, new ShootTypeBomb(Config.SHOOT_RATE_BOMB));
     }
+
+    private void Update()
+    {
+
+    }
 }

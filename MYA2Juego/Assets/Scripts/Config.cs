@@ -34,7 +34,10 @@ public class Config
     public const float BULLET_LIFETIME = 2f;
     public const float LASER_MAX_DISTANCE = 5;
 
+    // ===== SHOOT TYPE =====
+    public const int PLAYER_LIFES = 3;
+
     // ===== ASTEROIDS COUNT =====
-    public const int ASTEROIDS_COUNT_LEVEL1 = 20;
+    public const int ASTEROIDS_COUNT_LEVEL1 = 50;
     public const float ASTEROIDS_SPAWN_TIMER = 5f;
 }

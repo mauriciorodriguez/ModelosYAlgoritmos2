@@ -14,7 +14,6 @@ public class MenuScreen : MonoBehaviour, IScreen
     }
     public void StartGame()
     {
-        Debug.Log("Start game");
         ScreenManager.instance.PushPrefab(prefabGame, true);
     }
     public GameObject GetGameObject()

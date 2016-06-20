@@ -17,7 +17,6 @@ public class ShootTypeAutomatic : IStrategyShootType
         if (_currentShootRate <= 0)
         {
             var bullet = bulletPool.GetObject();
-            Debug.Log(bullet);
             bullet.transform.position = playerTransform.position; // TODO : Sumar la mitad del alto del sprite de la nave
             bullet.transform.up = playerTransform.up;
             _currentShootRate = _shootRate;
