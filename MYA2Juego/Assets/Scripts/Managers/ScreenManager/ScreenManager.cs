@@ -53,12 +53,12 @@ public class ScreenManager : MonoBehaviour
 
     public void PopScreen()
     {
-        Debug.Log(String.Format("Pop con {0} elementos", _screenStack.Count));
+        //Debug.Log(String.Format("Pop con {0} elementos", _screenStack.Count));
 
         if (_screenStack.Count > 1)
         {
             var part = _screenStack.Peek();
-            Debug.Log("Destroy");
+            //Debug.Log("Destroy");
             _screenStack.Pop();
             if (part.deactivated) _screenStack.Peek().screen.GetGameObject().SetActive(true);
             else SetUpdate(_screenStack.Peek().screen.GetGameObject(), true);

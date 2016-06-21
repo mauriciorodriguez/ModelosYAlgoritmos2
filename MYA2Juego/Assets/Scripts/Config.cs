@@ -37,7 +37,13 @@ public class Config
     // ===== SHOOT TYPE =====
     public const int PLAYER_LIFES = 3;
 
+    // ===== FACADE MSG =====
+    public const string FACADE_MSG_WIN = "Win";
+    public const string FACADE_MSG_LOSE = "Lose";
+    public const string FACADE_MSG_TIE = "Tie";
+    public const string FACADE_MSG_CONTROL = "";
+
     // ===== ASTEROIDS COUNT =====
-    public const int ASTEROIDS_COUNT_LEVEL1 = 50;
+    public const int ASTEROIDS_COUNT_LEVEL1 = 1;
     public const float ASTEROIDS_SPAWN_TIMER = 5f;
 }

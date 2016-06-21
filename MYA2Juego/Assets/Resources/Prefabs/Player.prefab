@@ -9,9 +9,9 @@ GameObject:
   m_Component:
   - 4: {fileID: 456656}
   - 212: {fileID: 21213112}
+  - 61: {fileID: 6114174}
   - 114: {fileID: 11411568}
   - 114: {fileID: 11430488}
-  - 61: {fileID: 6114174}
   m_Layer: 8
   m_Name: Player
   m_TagString: Untagged
@@ -58,6 +58,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   explosion: {fileID: 167362, guid: 17645985b5a36944486d6cebef944b50, type: 2}
   life: 3
+  lifesIcon: []
 --- !u!114 &11430488
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -9,9 +9,9 @@ GameObject:
   m_Component:
   - 4: {fileID: 462624}
   - 212: {fileID: 21295400}
-  - 114: {fileID: 11455150}
   - 61: {fileID: 6110378}
   - 50: {fileID: 5063750}
+  - 114: {fileID: 11455150}
   m_Layer: 12
   m_Name: EnemySmall
   m_TagString: Enemies

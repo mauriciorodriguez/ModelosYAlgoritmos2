@@ -30,7 +30,6 @@ public class Asteroid : MonoBehaviour, IReusable, IDecoratorAsteroid
 
     public void OnCreate()
     {
-        gameObject.transform.parent = GameObject.FindGameObjectWithTag(Config.TAG_ENEMIES).transform;
         gameObject.SetActive(false);
         gameObject.name += " : " + (_count++);
     }
