@@ -5,13 +5,13 @@ using System.Linq;
 
 public class Facade
 {
-    public string CheckEndCondition(Player player, IEnumerable<Asteroid> asteroids, int asteroidCountPerLevel)
+    public string CheckEndCondition(int playerLifes, IEnumerable<Asteroid> asteroids, int asteroidCountPerLevel)
     {
-        if (player.life <= 0 && asteroids.Count() == 0 && asteroidCountPerLevel == 0)
+        if (playerLifes <= 0 && asteroids.Count() == 0 && asteroidCountPerLevel == 0)
         {
             return Config.FACADE_MSG_TIE;
         }
-        else if (player.life <= 0)
+        else if (playerLifes <= 0)
         {
             return Config.FACADE_MSG_LOSE;
         }

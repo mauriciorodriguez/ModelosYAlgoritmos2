@@ -1,18 +1,22 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System;
+using System.Collections.Generic;
 
-public class Asteroid : MonoBehaviour, IReusable, IDecoratorAsteroid
+public class Asteroid : MonoBehaviour, IReusable, IDecoratorAsteroid, IObservable
 {
     public static int _count = 0;
+
     public float hp, speed;
     public int damage = 1;
+    public GameObject explosion;
     public bool isOutOfScreen { private set; get; }
 
     private Vector3 _position, _rotation;
     private SpriteRenderer _model;
     private IDecoratorAsteroid _decorator;
-    public GameObject explosion;
+    private List<IObserver> _obs;
+
     private void Start()
     {
         _model = GetComponent<SpriteRenderer>();
@@ -127,5 +131,23 @@ public class Asteroid : MonoBehaviour, IReusable, IDecoratorAsteroid
     public void Execute(GameObject go)
     {
         transform.position += transform.up * speed * Time.deltaTime;
+    }
+
+    public void AddObserver(IObserver obs)
+    {
+        if (!_obs.Contains(obs)) _obs.Add(obs);
+    }
+
+    public void RemoveObserver(IObserver obs)
+    {
+        if (_obs.Contains(obs)) _obs.Remove(obs);
+    }
+
+    public void Notify(string msg)
+    {
+        foreach (var o in _obs)
+        {
+            o.Notify(gameObject, msg);
+        }
     }
 }

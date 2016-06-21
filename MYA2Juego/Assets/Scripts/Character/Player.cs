@@ -1,29 +1,45 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using System;
 
-public class Player : MonoBehaviour
+public class Player : MonoBehaviour, IObservable
 {
     public GameObject explosion;
     public int life;
 
     private GameObject _player;
-    public List<GameObject> lifesIcon;
+    private List<IObserver> _obs = new List<IObserver>();
 
-    void Awake()
+    void Start()
     {
-        _player = this.gameObject;
-        life = Config.PLAYER_LIFES;
+        _player = gameObject;
+        Notify(Config.OBSERVER_PLAYER_LIFES);
     }
 
     public void SetLife(int dmg)
     {
-        if (life > 0)
+        life -= dmg;
+        Notify(Config.OBSERVER_PLAYER_LIFES);
+        if (life == 0) Destroy(this.gameObject);
+    }
+
+    public void AddObserver(IObserver obs)
+    {
+        if (!_obs.Contains(obs)) _obs.Add(obs);
+    }
+
+    public void RemoveObserver(IObserver obs)
+    {
+        if (_obs.Contains(obs)) _obs.Remove(obs);
+    }
+
+    public void Notify(string msg)
+    {
+        foreach (var o in _obs)
         {
-            lifesIcon[life - 1].gameObject.SetActive(false);
-            life -= dmg;
+            o.Notify(gameObject, msg);
         }
-        if(life == 0) Destroy(this.gameObject);
     }
 
     /*void OnTriggerEnter2D(Collider2D coll)

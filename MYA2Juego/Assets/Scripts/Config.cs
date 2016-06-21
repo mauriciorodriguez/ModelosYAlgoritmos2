@@ -22,6 +22,7 @@ public class Config
     public const string TAG_ENEMIES = "Enemies";
     public const string TAG_AMMO = "Ammo";
     public const string TAG_POWERUPS = "Powerups";
+    public const string TAG_LIFES = "Lifes";
 
     // ===== SHOOT TYPE =====
     public const string SHOOT_TYPE_AUTOMATIC = "Automatic";
@@ -42,6 +43,9 @@ public class Config
     public const string FACADE_MSG_LOSE = "Lose";
     public const string FACADE_MSG_TIE = "Tie";
     public const string FACADE_MSG_CONTROL = "";
+
+    // ===== OBSERVER MESSAGES =====
+    public const string OBSERVER_PLAYER_LIFES = "LIFES";
 
     // ===== ASTEROIDS COUNT =====
     public const int ASTEROIDS_COUNT_LEVEL1 = 1;
