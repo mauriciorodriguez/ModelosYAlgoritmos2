@@ -73,9 +73,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2c72585e6ab9b104087e1d8efc5809b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hp: 10
+  hp: 15
   speed: 3
   damage: 1
+  score: 10
   explosion: {fileID: 167362, guid: 17645985b5a36944486d6cebef944b50, type: 2}
 --- !u!212 &21202130
 SpriteRenderer:
@@ -132,7 +133,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: hp
-      value: 10
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: m_Layer
@@ -146,6 +147,10 @@ Prefab:
       propertyPath: explosion
       value: 
       objectReference: {fileID: 167362, guid: 17645985b5a36944486d6cebef944b50, type: 2}
+    - target: {fileID: 0}
+      propertyPath: score
+      value: 10
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 127502}

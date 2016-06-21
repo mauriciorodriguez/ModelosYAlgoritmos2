@@ -76,6 +76,7 @@ MonoBehaviour:
   hp: 10
   speed: 3
   damage: 1
+  score: 5
   explosion: {fileID: 167362, guid: 17645985b5a36944486d6cebef944b50, type: 2}
 --- !u!212 &21295400
 SpriteRenderer:
@@ -146,6 +147,10 @@ Prefab:
       propertyPath: explosion
       value: 
       objectReference: {fileID: 167362, guid: 17645985b5a36944486d6cebef944b50, type: 2}
+    - target: {fileID: 0}
+      propertyPath: score
+      value: 5
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 158436}

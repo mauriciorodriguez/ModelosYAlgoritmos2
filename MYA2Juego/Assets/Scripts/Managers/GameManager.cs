@@ -4,6 +4,7 @@ using System.Linq;
 using UnityEngine.UI;
 using System.Collections.Generic;
 using System;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour, IObserver
 {  
@@ -25,7 +26,13 @@ public class GameManager : MonoBehaviour, IObserver
 
     private void Update()
     {
-        if (_gameOver && Input.GetKeyDown(KeyCode.Return)) ScreenManager.instance.PopScreen();
+        if (_gameOver && Input.GetKeyDown(KeyCode.Return))
+        {
+            // TODO : Cambiar reinicializacion de statics
+            EnemySpawner.asteroidsCount = Config.ASTEROIDS_COUNT_LEVEL1;
+            Asteroid._count = 0;
+            SceneManager.LoadScene(0);
+        }
 
         //if (_playerReference.life == 0 && !_gameOver) GameOver("You Lose");
         if (_gameOver) return;

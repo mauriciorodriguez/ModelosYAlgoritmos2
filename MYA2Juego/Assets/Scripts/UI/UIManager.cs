@@ -6,7 +6,7 @@ using System.Collections.Generic;
 
 public class UIManager : MonoBehaviour, IObserver
 {
-    public Text youWinText, tieText, youLoseText, restartText;
+    public Text youWinText, tieText, youLoseText, restartText, scoreText;
     public GameObject LifePrefab;
 
     private int _playerLifes;
@@ -25,6 +25,9 @@ public class UIManager : MonoBehaviour, IObserver
             case Config.OBSERVER_PLAYER_LIFES:
                 _playerLifes = caller.GetComponent<Player>().life;
                 UpdateLifes();
+                break;
+            case Config.OBSERVER_PLAYER_SCORE:
+                UpdateScore(caller.GetComponent<Player>().score);
                 break;
             default:
                 break;
@@ -58,6 +61,11 @@ public class UIManager : MonoBehaviour, IObserver
         {
             restartText.gameObject.SetActive(true);
         }
+    }
+
+    private void UpdateScore(int score)
+    {
+        scoreText.text = "SCORE: " + score;
     }
 
     private void UpdateLifes()

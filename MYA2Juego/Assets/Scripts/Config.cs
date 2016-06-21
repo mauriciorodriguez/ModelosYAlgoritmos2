@@ -45,9 +45,10 @@ public class Config
     public const string FACADE_MSG_CONTROL = "";
 
     // ===== OBSERVER MESSAGES =====
-    public const string OBSERVER_PLAYER_LIFES = "LIFES";
+    public const string OBSERVER_PLAYER_LIFES = "Lifes";
+    public const string OBSERVER_PLAYER_SCORE = "Score";
 
     // ===== ASTEROIDS COUNT =====
-    public const int ASTEROIDS_COUNT_LEVEL1 = 1;
+    public const int ASTEROIDS_COUNT_LEVEL1 = 20;
     public const float ASTEROIDS_SPAWN_TIMER = 5f;
 }

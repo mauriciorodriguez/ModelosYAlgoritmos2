@@ -8,7 +8,7 @@ public class Asteroid : MonoBehaviour, IReusable, IDecoratorAsteroid, IObservabl
     public static int _count = 0;
 
     public float hp, speed;
-    public int damage = 1;
+    public int damage, score;
     public GameObject explosion;
     public bool isOutOfScreen { private set; get; }
 
@@ -50,6 +50,9 @@ public class Asteroid : MonoBehaviour, IReusable, IDecoratorAsteroid, IObservabl
     {
         if (hp <= 0)
         {
+            var player = GameObject.FindGameObjectWithTag(Config.TAG_PLAYER).GetComponent<Player>();
+            player.score += score;
+            player.Notify(Config.OBSERVER_PLAYER_SCORE);
             switch (gameObject.layer)
             {
                 case Config.LAYER_SMALL_ASTEROID:

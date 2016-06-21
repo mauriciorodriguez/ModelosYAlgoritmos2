@@ -6,7 +6,7 @@ using System;
 public class Player : MonoBehaviour, IObservable
 {
     public GameObject explosion;
-    public int life;
+    public int life, score;
 
     private GameObject _player;
     private List<IObserver> _obs = new List<IObserver>();
