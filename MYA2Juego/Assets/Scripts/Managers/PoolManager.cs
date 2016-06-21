@@ -22,7 +22,7 @@ public class PoolManager : MonoBehaviour
 
     private IDecoratorAsteroid SetSmallEnemiesDecorators()
     {
-        return new DecoratorAsteroidZigZag(); // TODO
+        return null;//new DecoratorAsteroidZigZag(); // TODO
     }
 
     private IDecoratorAsteroid SetMediumEnemiesDecorators()

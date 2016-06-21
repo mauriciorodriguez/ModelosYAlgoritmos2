@@ -17,8 +17,5 @@ public class Laser : Ammo
         line.SetPosition(0, new Vector2(0, laserDistance));
         RaycastHit2D hit = Physics2D.Raycast(transform.position, transform.parent.up * laserDistance, 1 << Config.LAYER_ASTEROID);
         Debug.DrawRay(transform.position, transform.parent.up * laserDistance);
-
-        if (hit.collider != null) print(hit.collider.gameObject.name);
-
     }
 }

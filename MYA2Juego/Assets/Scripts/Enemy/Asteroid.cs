@@ -101,6 +101,11 @@ public class Asteroid : MonoBehaviour, IReusable, IDecoratorAsteroid, IObservabl
             hp -= col.GetComponent<Ammo>().damage;
             GameObject.FindGameObjectWithTag(Config.TAG_MANAGERS).GetComponent<PoolManager>().poolBullets.PutBackObject(col.gameObject);
         }
+        else if (col.gameObject.layer == Config.LAYER_BOMB)
+        {
+            hp -= col.GetComponent<Ammo>().damage;
+            GameObject.FindGameObjectWithTag(Config.TAG_MANAGERS).GetComponent<PoolManager>().poolBombs.PutBackObject(col.gameObject);
+        }
         else if (col.gameObject.layer == Config.LAYER_PLAYER)
         {
             col.GetComponent<Player>().SetLife(damage);
