@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System;
 
-public class Player : MonoBehaviour, IObservable
+public class Player : MonoBehaviour, IObservable, IDecoratorProxy
 {
     public GameObject explosion;
     public int life, score;
@@ -11,17 +11,25 @@ public class Player : MonoBehaviour, IObservable
     private GameObject _player;
     private List<IObserver> _obs = new List<IObserver>();
 
+    public IDecoratorSecondShip SecondShip;
+
+    public bool WithSecondShip = true;
+
     void Start()
     {
         _player = gameObject;
         Notify(Config.OBSERVER_PLAYER_LIFES);
+        SecondShip.gameObject.SetActive(false);
     }
 
     public void SetLife(int dmg)
     {
         life -= dmg;
         Notify(Config.OBSERVER_PLAYER_LIFES);
-        if (life == 0) Destroy(this.gameObject);
+        if (life == 0)
+        {
+            Destroy();
+        }
     }
 
     public void AddObserver(IObserver obs)
@@ -76,4 +84,43 @@ public class Player : MonoBehaviour, IObservable
         }
 
     }*/
+
+    public void ExtraLife()
+    {
+        if (life == Config.PLAYER_LIFES)
+        {
+            if(WithSecondShip==true)
+            {
+                SecondShip.gameObject.SetActive(true);
+                SecondShip.flagDestroy = false;
+            }
+           
+        }
+        else
+        {
+            life++;
+            Notify(Config.OBSERVER_PLAYER_LIFES);
+        }
+
+    }
+
+    public void LateUpdate()
+    {
+        if (SecondShip != null)
+        {
+            SecondShip.LateUpdate();
+        }
+
+    }
+
+    public void Destroy()
+    {
+        if (SecondShip != null)
+        {
+            SecondShip.Destroy();
+            SecondShip = null;
+        }
+        Destroy(this.gameObject);
+    }
+
 }

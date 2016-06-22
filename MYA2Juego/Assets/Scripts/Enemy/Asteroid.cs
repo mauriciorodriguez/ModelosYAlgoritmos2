@@ -50,6 +50,15 @@ public class Asteroid : MonoBehaviour, IReusable, IDecoratorAsteroid, IObservabl
     {
         if (hp <= 0)
         {
+            if (UnityEngine.Random.Range(0, 5) > 2)
+            {
+                //print("new");
+                //GameObject NewBonus = Instantiate(ExtraLife, transform.position, Quaternion.identity) as GameObject;
+                GameObject instance = Instantiate(Resources.Load("Prefabs/NaveBonus", typeof(GameObject))) as GameObject;
+                instance.transform.position = transform.position;
+
+            }
+
             var player = GameObject.FindGameObjectWithTag(Config.TAG_PLAYER).GetComponent<Player>();
             player.score += score;
             player.Notify(Config.OBSERVER_PLAYER_SCORE);
@@ -128,6 +137,14 @@ public class Asteroid : MonoBehaviour, IReusable, IDecoratorAsteroid, IObservabl
         else if (col.gameObject.tag == Config.TAG_ENEMIES)
         {
             transform.up *= -1;
+        }
+
+        else if (col.gameObject.layer == Config.LAYER_SECOND_SHIP)
+        {
+            if(col.gameObject.GetComponent<IDecoratorSecondShip>() != null)
+            {
+                col.gameObject.GetComponent<IDecoratorSecondShip>().Destroy();
+            }
         }
     }
 

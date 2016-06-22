@@ -16,6 +16,7 @@ public class Config
     public const int LAYER_MEDIUM_ASTEROID = 13;
     public const int LAYER_BIG_ASTEROID = 14;
     public const int LAYER_BOMB = 15;
+    public const int LAYER_SECOND_SHIP = 16;
 
     // ===== TAGS =====
     public const string TAG_PLAYER = "Player";
