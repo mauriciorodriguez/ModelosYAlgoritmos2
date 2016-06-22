@@ -13,7 +13,6 @@ public class InputControllerPlayer : MonoBehaviour
     private SpriteRenderer _model;
     private IStrategyShootType _shootTypeStrategy;
     private PoolManager _poolManagerRef;
-
     void Start()
     {
         _poolManagerRef = GameObject.FindGameObjectWithTag(Config.TAG_MANAGERS).GetComponent<PoolManager>();
@@ -47,7 +46,6 @@ public class InputControllerPlayer : MonoBehaviour
             transform.position = new Vector2(cameraWidth + _model.bounds.size.x / 2, transform.position.y);
 
         if (Input.GetKey(KeyCode.Space)) Fire();
-        else if (Input.GetKey(KeyCode.F)) _laser.SetActive(true);
         else _laser.SetActive(false);
 
         ShootTypeSelection();
@@ -88,7 +86,7 @@ public class InputControllerPlayer : MonoBehaviour
                 _shootTypeStrategy.SpawnBullet(transform, _poolManagerRef.poolBullets);
                 break;
             case Config.SHOOT_TYPE_LASER:
-                _shootTypeStrategy.SpawnBullet(transform, _poolManagerRef.poolBullets);
+                _laser.SetActive(true);
                 break;
             case Config.SHOOT_TYPE_BOMB:
                 _shootTypeStrategy.SpawnBullet(transform, _poolManagerRef.poolBombs);
