@@ -7,17 +7,25 @@ public class InputControllerPlayer : MonoBehaviour
     public float speed;
     public float rotationSpeed;
     public string shootType { get; private set; }
+    public string powerupType;
     public GameObject _laser;
 
     private Vector3 rotationVector;
     private SpriteRenderer _model;
     private IStrategyShootType _shootTypeStrategy;
     private PoolManager _poolManagerRef;
+
+    private float timer = 5f;
+
+    public bool powerupAutomatic;
+    public bool powerupLaser;
+    public bool powerupBomb;
     void Start()
     {
         _poolManagerRef = GameObject.FindGameObjectWithTag(Config.TAG_MANAGERS).GetComponent<PoolManager>();
         _model = transform.GetComponent<SpriteRenderer>();
         shootType = Config.SHOOT_TYPE_AUTOMATIC;
+        powerupType = "";
         _shootTypeStrategy = new ShootTypeAutomatic(Config.SHOOT_RATE_AUTOMATIC);
         //Luego tienen que instanciarse en un pool
     }
@@ -50,6 +58,7 @@ public class InputControllerPlayer : MonoBehaviour
 
         ShootTypeSelection();
         _shootTypeStrategy.Update();
+        CheckPowerup();
     }
 
     private void ShootTypeSelection()
@@ -74,12 +83,43 @@ public class InputControllerPlayer : MonoBehaviour
         }
     }
 
+    private void CheckPowerup()
+    {
+        if (_laser.activeSelf && shootType == Config.POWERUP_TYPE_LASER)
+        {
+            timer -= Time.deltaTime;
+            if (timer <= 0)
+            {
+                _laser.GetComponent<Laser>().DisablePowerup();
+                powerupType = "";
+                shootType = Config.SHOOT_TYPE_LASER;
+                timer = 5;
+            }
+        }
+
+        else if(shootType == Config.POWERUP_TYPE_BOMB)
+        {
+            timer -= Time.deltaTime;
+            if (timer <= 0)
+            {
+                powerupType = "";
+                shootType = Config.SHOOT_TYPE_BOMB;
+                timer = 5;
+                print("termino");
+            }
+        }
+
+    }
+
     void Fire()
     {
         //Por ahora solo dispara Simple Bullets
         /*GameObject newBullet;
         newBullet=Instantiate<GameObject>(Factory.BulletFactory("Bullet"));
         newBullet.transform.position = transform.position;*/
+
+        if (powerupType != "") shootType = powerupType;
+
         switch (shootType)
         {
             case Config.SHOOT_TYPE_AUTOMATIC:
@@ -90,6 +130,16 @@ public class InputControllerPlayer : MonoBehaviour
                 break;
             case Config.SHOOT_TYPE_BOMB:
                 _shootTypeStrategy.SpawnBullet(transform, _poolManagerRef.poolBombs);
+                break;
+            case Config.POWERUP_TYPE_AUTOMATIC:
+                _shootTypeStrategy.SpawnBullet(transform, _poolManagerRef.poolBullets);
+                break;
+            case Config.POWERUP_TYPE_LASER:
+                _laser.SetActive(true);
+                if (powerupType != "") _laser.GetComponent<Laser>().EnablePowerup();
+                break;
+            case Config.POWERUP_TYPE_BOMB:
+                if (powerupType != "") _shootTypeStrategy.SpawnBullet(transform, _poolManagerRef.poolSuperBombs);
                 break;
             default:
                 break;

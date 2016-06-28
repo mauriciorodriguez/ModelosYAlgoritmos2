@@ -31,6 +31,11 @@ public class Config
     public const string SHOOT_TYPE_LASER = "Laser";
     public const string SHOOT_TYPE_BOMB = "Bomb";
 
+    // ===== POWERUP TYPE =====
+    public const string POWERUP_TYPE_AUTOMATIC = "TripleBullet";
+    public const string POWERUP_TYPE_LASER = "SuperLaser";
+    public const string POWERUP_TYPE_BOMB = "BigBomb";
+
     // ===== BULLETS CONFIG =====
     public const float SHOOT_RATE_AUTOMATIC = 0.25f;
     public const float SHOOT_RATE_BOMB = 0.5f;
