@@ -31,7 +31,7 @@ public class IDecoratorSecondShip: MonoBehaviour, IDecoratorProxy
 
 
 
-    public void Destroy()
+    public void DestroyShip()
     {
         flagDestroy = true;
     }

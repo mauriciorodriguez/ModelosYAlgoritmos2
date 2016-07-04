@@ -10,7 +10,7 @@ public class Bomb : Ammo
         base.Update();
         if (_currentLifetime <= 0)
         {
-            GameObject.FindGameObjectWithTag(Config.TAG_MANAGERS).GetComponent<PoolManager>().poolBombs.PutBackObject(gameObject);
+            GameObject.FindGameObjectWithTag(K.TAG_MANAGERS).GetComponent<PoolManager>().poolBombs.PutBackObject(gameObject);
         }
     }
 }

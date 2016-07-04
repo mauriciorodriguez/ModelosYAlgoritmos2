@@ -20,21 +20,22 @@ public class InputControllerPlayer : MonoBehaviour
     public bool powerupAutomatic;
     public bool powerupLaser;
     public bool powerupBomb;
+
     void Start()
     {
-        _poolManagerRef = GameObject.FindGameObjectWithTag(Config.TAG_MANAGERS).GetComponent<PoolManager>();
+        _poolManagerRef = GameObject.FindGameObjectWithTag(K.TAG_MANAGERS).GetComponent<PoolManager>();
         _model = transform.GetComponent<SpriteRenderer>();
-        shootType = Config.SHOOT_TYPE_AUTOMATIC;
         powerupType = "";
-        _shootTypeStrategy = new ShootTypeAutomatic(Config.SHOOT_RATE_AUTOMATIC);
-        //Luego tienen que instanciarse en un pool
+
+        shootType = GameObject.FindGameObjectWithTag(K.TAG_MANAGERS).GetComponent<GameManager>().StartShootType;
+        _shootTypeStrategy = Factory.GetShootStrategy(shootType);
     }
 
     void Update()
     {
         //Movements     
-        transform.position += Input.GetAxis(Config.INPUT_VERTICAL) * speed * transform.up * Time.deltaTime;
-        rotationVector.z = rotationSpeed * -Input.GetAxis(Config.INPUT_HORIZONTAL);
+        transform.position += Input.GetAxis(K.INPUT_VERTICAL) * speed * transform.up * Time.deltaTime;
+        rotationVector.z = rotationSpeed * -Input.GetAxis(K.INPUT_HORIZONTAL);
         transform.Rotate(rotationVector * Time.deltaTime);
 
 
@@ -66,44 +67,44 @@ public class InputControllerPlayer : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Alpha1) || Input.GetKeyDown(KeyCode.Keypad1))
         {
             _shootTypeStrategy = null;
-            shootType = Config.SHOOT_TYPE_AUTOMATIC;
+            shootType = K.SHOOT_TYPE_AUTOMATIC;
             _shootTypeStrategy = Factory.GetShootStrategy(shootType);
         }
         if (Input.GetKeyDown(KeyCode.Alpha2) || Input.GetKeyDown(KeyCode.Keypad2))
         {
             _shootTypeStrategy = null;
-            shootType = Config.SHOOT_TYPE_LASER;
+            shootType = K.SHOOT_TYPE_LASER;
             _shootTypeStrategy = Factory.GetShootStrategy(shootType);
         }
         if (Input.GetKeyDown(KeyCode.Alpha3) || Input.GetKeyDown(KeyCode.Keypad3))
         {
             _shootTypeStrategy = null;
-            shootType = Config.SHOOT_TYPE_BOMB;
+            shootType = K.SHOOT_TYPE_BOMB;
             _shootTypeStrategy = Factory.GetShootStrategy(shootType);
         }
     }
 
     private void CheckPowerup()
     {
-        if (_laser.activeSelf && shootType == Config.POWERUP_TYPE_LASER)
+        if (_laser.activeSelf && shootType == K.POWERUP_TYPE_LASER)
         {
             timer -= Time.deltaTime;
             if (timer <= 0)
             {
                 _laser.GetComponent<Laser>().DisablePowerup();
                 powerupType = "";
-                shootType = Config.SHOOT_TYPE_LASER;
+                shootType = K.SHOOT_TYPE_LASER;
                 timer = 5;
             }
         }
 
-        else if(shootType == Config.POWERUP_TYPE_BOMB)
+        else if(shootType == K.POWERUP_TYPE_BOMB)
         {
             timer -= Time.deltaTime;
             if (timer <= 0)
             {
                 powerupType = "";
-                shootType = Config.SHOOT_TYPE_BOMB;
+                shootType = K.SHOOT_TYPE_BOMB;
                 timer = 5;
                 print("termino");
             }
@@ -122,23 +123,23 @@ public class InputControllerPlayer : MonoBehaviour
 
         switch (shootType)
         {
-            case Config.SHOOT_TYPE_AUTOMATIC:
+            case K.SHOOT_TYPE_AUTOMATIC:
                 _shootTypeStrategy.SpawnBullet(transform, _poolManagerRef.poolBullets);
                 break;
-            case Config.SHOOT_TYPE_LASER:
+            case K.SHOOT_TYPE_LASER:
                 _laser.SetActive(true);
                 break;
-            case Config.SHOOT_TYPE_BOMB:
+            case K.SHOOT_TYPE_BOMB:
                 _shootTypeStrategy.SpawnBullet(transform, _poolManagerRef.poolBombs);
                 break;
-            case Config.POWERUP_TYPE_AUTOMATIC:
+            case K.POWERUP_TYPE_AUTOMATIC:
                 _shootTypeStrategy.SpawnBullet(transform, _poolManagerRef.poolBullets);
                 break;
-            case Config.POWERUP_TYPE_LASER:
+            case K.POWERUP_TYPE_LASER:
                 _laser.SetActive(true);
                 if (powerupType != "") _laser.GetComponent<Laser>().EnablePowerup();
                 break;
-            case Config.POWERUP_TYPE_BOMB:
+            case K.POWERUP_TYPE_BOMB:
                 if (powerupType != "") _shootTypeStrategy.SpawnBullet(transform, _poolManagerRef.poolSuperBombs);
                 break;
             default:

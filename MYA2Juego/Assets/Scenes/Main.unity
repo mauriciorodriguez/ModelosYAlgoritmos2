@@ -222,6 +222,10 @@ Prefab:
       propertyPath: m_Color.b
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 196220, guid: 617c51b3f9353bd4bb34c9cadef2772c, type: 2}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 617c51b3f9353bd4bb34c9cadef2772c, type: 2}
   m_IsPrefabParent: 0
@@ -333,6 +337,10 @@ Prefab:
     - target: {fileID: 427074, guid: 38529275299441249826135787bcef5e, type: 2}
       propertyPath: m_RootOrder
       value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 101268, guid: 38529275299441249826135787bcef5e, type: 2}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 38529275299441249826135787bcef5e, type: 2}
@@ -554,6 +562,10 @@ Prefab:
       propertyPath: m_Name
       value: Powerup (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 196220, guid: 617c51b3f9353bd4bb34c9cadef2772c, type: 2}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 617c51b3f9353bd4bb34c9cadef2772c, type: 2}
   m_IsPrefabParent: 0
@@ -572,7 +584,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1254082767
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -839,6 +851,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 687f095457bce6e4e8ddcc0e5b7ab715, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  model: {fileID: 0}
+  StartShootType: 
+  mapName: 
 --- !u!1 &1557142039
 GameObject:
   m_ObjectHideFlags: 0

@@ -3,17 +3,22 @@ using System.Collections;
 using System;
 using System.Collections.Generic;
 
-public class DropExtraShip : MonoBehaviour {
+public class DropExtraShip : MonoBehaviour
+{
+    private Model _model;
 
-    public void OnTriggerEnter2D(Collider2D col)
+    private void Start()
     {
-        //Debug.Log("Plack");
-        
-        if (col.gameObject.layer==Config.LAYER_PLAYER)
+        _model = GameObject.FindGameObjectWithTag(K.TAG_MODEL).GetComponent<Model>();
+    }
+
+    private void OnTriggerEnter2D(Collider2D col)
+    {
+        if (col.gameObject.layer == K.LAYER_PLAYER)
         {
-            col.GetComponent<Player>().ExtraLife();
-            Destroy(this.gameObject);
+            _model.AddLives(1);
+            Destroy(gameObject);
         }
-        
+
     }
 }

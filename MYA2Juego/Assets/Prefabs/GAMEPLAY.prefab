@@ -99,6 +99,22 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 0
+--- !u!1 &122350
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 433924}
+  - 114: {fileID: 11400002}
+  m_Layer: 0
+  m_Name: MODEL
+  m_TagString: Model
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &124840
 GameObject:
   m_ObjectHideFlags: 1
@@ -148,7 +164,7 @@ GameObject:
   - 114: {fileID: 11496944}
   - 114: {fileID: 11416918}
   m_Layer: 0
-  m_Name: GameManagers
+  m_Name: Managers
   m_TagString: Managers
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -305,7 +321,7 @@ GameObject:
   - 114: {fileID: 11427986}
   - 114: {fileID: 11432062}
   m_Layer: 0
-  m_Name: UI
+  m_Name: VIEW
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -336,6 +352,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 224: {fileID: 22400550}
+  - 114: {fileID: 11434168}
   m_Layer: 0
   m_Name: Lifes
   m_TagString: Lifes
@@ -383,6 +400,7 @@ GameObject:
   - 224: {fileID: 22418170}
   - 222: {fileID: 22236882}
   - 114: {fileID: 11433610}
+  - 114: {fileID: 11445100}
   m_Layer: 0
   m_Name: TextScore
   m_TagString: Untagged
@@ -488,6 +506,7 @@ Transform:
   - {fileID: 415718}
   - {fileID: 423368}
   - {fileID: 432804}
+  - {fileID: 433924}
   m_Father: {fileID: 0}
   m_RootOrder: 0
 --- !u!4 &432804
@@ -503,6 +522,18 @@ Transform:
   - {fileID: 490202}
   m_Father: {fileID: 427074}
   m_RootOrder: 7
+--- !u!4 &433924
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 122350}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 427074}
+  m_RootOrder: 8
 --- !u!4 &439878
 Transform:
   m_ObjectHideFlags: 1
@@ -832,6 +863,19 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &11400002
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 122350}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 787f42afb792a2e4ca352b15cac18da0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxLives: 5
+  currentLives: 0
 --- !u!114 &11401732
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -926,7 +970,6 @@ MonoBehaviour:
   youLoseText: {fileID: 11408160}
   restartText: {fileID: 11433632}
   scoreText: {fileID: 11433610}
-  LifePrefab: {fileID: 190786, guid: 00d6bf9a188c53b4d9d7cd1cda0d42a1, type: 2}
 --- !u!114 &11424008
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -984,8 +1027,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   explosion: {fileID: 167362, guid: 17645985b5a36944486d6cebef944b50, type: 2}
-  life: 3
-  score: 0
   SecondShip: {fileID: 11464552}
   WithSecondShip: 1
 --- !u!114 &11432062
@@ -1015,6 +1056,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 687f095457bce6e4e8ddcc0e5b7ab715, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  model: {fileID: 11400002}
+  StartShootType: Automatic
+  mapName: MAP 1
 --- !u!114 &11432760
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1092,6 +1136,30 @@ MonoBehaviour:
     m_VerticalOverflow: 1
     m_LineSpacing: 1
   m_Text: PRESS ENTER TO RESTART
+--- !u!114 &11434168
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 191674}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa4c84934c7a7ca4cb4fd7c53efaa35b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  LifePrefab: {fileID: 190786, guid: 00d6bf9a188c53b4d9d7cd1cda0d42a1, type: 2}
+--- !u!114 &11445100
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 197274}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 463072d76573afc4390268e37ebc97d4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  scoreText: {fileID: 11433610}
 --- !u!114 &11460350
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1216,9 +1284,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   prefabBullet: {fileID: 115488, guid: ea8108b45b39a614894eb7eddad14b3c, type: 2}
   prefabBomb: {fileID: 103962, guid: b97a2a7bd26dd1d42b1218af395e98bd, type: 2}
-  prefabSmallEnemy: {fileID: 158436, guid: 8ee3510541bf36147b1eb1660c1948ab, type: 2}
-  prefabMediumEnemy: {fileID: 127502, guid: 3bcc3113cf7fdad4983dedc04e4d3ed1, type: 2}
-  prefabBigEnemy: {fileID: 123524, guid: aac9a539417991b4a92fab437ceea1cb, type: 2}
+  prefabSmallEnemy: {fileID: 102196, guid: 8ee3510541bf36147b1eb1660c1948ab, type: 2}
+  prefabMediumEnemy: {fileID: 105878, guid: 3bcc3113cf7fdad4983dedc04e4d3ed1, type: 2}
+  prefabBigEnemy: {fileID: 105644, guid: aac9a539417991b4a92fab437ceea1cb, type: 2}
   prefabSuperBomb: {fileID: 103962, guid: 0586763409bd8e24d986578852812f85, type: 2}
 --- !u!120 &12078492
 LineRenderer:

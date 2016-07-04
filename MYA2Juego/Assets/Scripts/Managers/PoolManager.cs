@@ -15,13 +15,13 @@ public class PoolManager : MonoBehaviour
 
     private void Awake()
     {
-        poolBullets = new ObjectPool<Ammo>(() => Instantiate(prefabBullet), Config.TAG_AMMO);
-        poolBombs = new ObjectPool<Ammo>(() => Instantiate(prefabBomb), Config.TAG_AMMO);
-        poolSuperBombs = new ObjectPool<Ammo>(() => Instantiate(prefabSuperBomb), Config.TAG_AMMO);
+        poolBullets = new ObjectPool<Ammo>(() => Instantiate(prefabBullet), K.TAG_AMMO);
+        poolBombs = new ObjectPool<Ammo>(() => Instantiate(prefabBomb), K.TAG_AMMO);
+        poolSuperBombs = new ObjectPool<Ammo>(() => Instantiate(prefabSuperBomb), K.TAG_AMMO);
 
-        poolSmallEnemies = new ObjectPool<Asteroid>(() => Instantiate(prefabSmallEnemy), Config.TAG_ENEMIES, SetSmallEnemiesDecorators());
-        poolMediumEnemies = new ObjectPool<Asteroid>(() => Instantiate(prefabMediumEnemy), Config.TAG_ENEMIES, SetMediumEnemiesDecorators());
-        poolBigEnemies = new ObjectPool<Asteroid>(() => Instantiate(prefabBigEnemy), Config.TAG_ENEMIES, SetBigEnemiesDecorators());
+        poolSmallEnemies = new ObjectPool<Asteroid>(() => Instantiate(prefabSmallEnemy), K.TAG_ENEMIES, SetSmallEnemiesDecorators());
+        poolMediumEnemies = new ObjectPool<Asteroid>(() => Instantiate(prefabMediumEnemy), K.TAG_ENEMIES, SetMediumEnemiesDecorators());
+        poolBigEnemies = new ObjectPool<Asteroid>(() => Instantiate(prefabBigEnemy), K.TAG_ENEMIES, SetBigEnemiesDecorators());
     }
 
     private IDecoratorAsteroid SetSmallEnemiesDecorators()

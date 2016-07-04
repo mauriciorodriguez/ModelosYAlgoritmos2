@@ -4,7 +4,7 @@ using System;
 
 public class ShootTypeLaser : IStrategyShootType
 {
-    private float _maxDistanceLaser = Config.LASER_MAX_DISTANCE;
+    private float _maxDistanceLaser = K.LASER_MAX_DISTANCE;
 
     public void SpawnBullet(Transform playerTransform, ObjectPool<Ammo> bulletPool)
     {

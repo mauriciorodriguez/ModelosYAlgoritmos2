@@ -2,7 +2,7 @@
 using System.Collections;
 using System;
 
-public abstract class Ammo : MonoBehaviour, IReusable
+public abstract class Ammo : MonoBehaviourCameraBounds, IReusable
 {
     public float speed, lifeTime, damage;
 
@@ -16,7 +16,7 @@ public abstract class Ammo : MonoBehaviour, IReusable
 
     public virtual void OnCreate()
     {
-        transform.parent = GameObject.FindGameObjectWithTag(Config.TAG_AMMO).transform;
+        transform.parent = GameObject.FindGameObjectWithTag(K.TAG_AMMO).transform;
         gameObject.SetActive(false);
     }
 
@@ -25,8 +25,9 @@ public abstract class Ammo : MonoBehaviour, IReusable
         gameObject.SetActive(false);
     }
 
-    protected virtual void Update()
+    protected override void Update()
     {
+        base.Update();
         _currentLifetime -= Time.deltaTime;        
     }
 }

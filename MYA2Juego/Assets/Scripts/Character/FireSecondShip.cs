@@ -16,9 +16,9 @@ public class FireSecondShip : MonoBehaviour
 
     void Start()
     {
-        _poolManagerRef = GameObject.FindGameObjectWithTag(Config.TAG_MANAGERS).GetComponent<PoolManager>();
-        shootType = Config.SHOOT_TYPE_AUTOMATIC;
-        _shootTypeStrategy = new ShootTypeAutomatic(Config.SHOOT_RATE_AUTOMATIC);
+        _poolManagerRef = GameObject.FindGameObjectWithTag(K.TAG_MANAGERS).GetComponent<PoolManager>();
+        shootType = K.SHOOT_TYPE_AUTOMATIC;
+        _shootTypeStrategy = new ShootTypeAutomatic(K.SHOOT_RATE_AUTOMATIC);
     }
 
     void Update()
@@ -39,7 +39,7 @@ public class FireSecondShip : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Alpha1) || Input.GetKeyDown(KeyCode.Keypad1))
         {
             _shootTypeStrategy = null;
-            shootType = Config.SHOOT_TYPE_AUTOMATIC;
+            shootType = K.SHOOT_TYPE_AUTOMATIC;
             _shootTypeStrategy = Factory.GetShootStrategy(shootType);
         }
         if (Input.GetKeyDown(KeyCode.Alpha2) || Input.GetKeyDown(KeyCode.Keypad2))
@@ -53,7 +53,7 @@ public class FireSecondShip : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Alpha3) || Input.GetKeyDown(KeyCode.Keypad3))
         {
             _shootTypeStrategy = null;
-            shootType = Config.SHOOT_TYPE_BOMB;
+            shootType = K.SHOOT_TYPE_BOMB;
             _shootTypeStrategy = Factory.GetShootStrategy(shootType);
         }
     }
@@ -64,13 +64,13 @@ public class FireSecondShip : MonoBehaviour
 
         switch (shootType)
         {
-            case Config.SHOOT_TYPE_AUTOMATIC:
+            case K.SHOOT_TYPE_AUTOMATIC:
                 _shootTypeStrategy.SpawnBullet(transform, _poolManagerRef.poolBullets);
                 break;
-            case Config.SHOOT_TYPE_LASER:
+            case K.SHOOT_TYPE_LASER:
                // _shootTypeStrategy.SpawnBullet(transform, _poolManagerRef.poolBullets);
                 break;
-            case Config.SHOOT_TYPE_BOMB:
+            case K.SHOOT_TYPE_BOMB:
                 _shootTypeStrategy.SpawnBullet(transform, _poolManagerRef.poolBombs);
                 break;
             default:

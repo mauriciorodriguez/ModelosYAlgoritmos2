@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Config
+public class K
 {
     // ===== INPUT =====
     public const string INPUT_HORIZONTAL = "Horizontal";
@@ -25,6 +25,7 @@ public class Config
     public const string TAG_AMMO = "Ammo";
     public const string TAG_POWERUPS = "Powerups";
     public const string TAG_LIFES = "Lifes";
+    public const string TAG_MODEL = "Model";
 
     // ===== SHOOT TYPE =====
     public const string SHOOT_TYPE_AUTOMATIC = "Automatic";
@@ -52,8 +53,9 @@ public class Config
     public const string FACADE_MSG_CONTROL = "";
 
     // ===== OBSERVER MESSAGES =====
-    public const string OBSERVER_PLAYER_LIFES = "Lifes";
+    public const string OBSERVER_PLAYER_ADD_LIVES = "AddLives";
     public const string OBSERVER_PLAYER_SCORE = "Score";
+    public const string OBSERVER_PLAYER_LIVES = "Lives";
 
     // ===== ASTEROIDS COUNT =====
     public const int ASTEROIDS_COUNT_LEVEL1 = 20;

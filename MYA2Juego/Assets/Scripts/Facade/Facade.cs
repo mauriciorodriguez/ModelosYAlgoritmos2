@@ -9,16 +9,16 @@ public class Facade
     {
         if (playerLifes <= 0 && asteroids.Count() == 0 && asteroidCountPerLevel == 0)
         {
-            return Config.FACADE_MSG_TIE;
+            return K.FACADE_MSG_TIE;
         }
         else if (playerLifes <= 0)
         {
-            return Config.FACADE_MSG_LOSE;
+            return K.FACADE_MSG_LOSE;
         }
         else if (asteroids.Count() == 0 && asteroidCountPerLevel == 0)
         {
-            return Config.FACADE_MSG_WIN;
+            return K.FACADE_MSG_WIN;
         }
-        return Config.FACADE_MSG_CONTROL;
+        return K.FACADE_MSG_CONTROL;
     }
 }

@@ -6,9 +6,12 @@ using System.Collections.Generic;
 using System;
 using UnityEngine.SceneManagement;
 
-public class GameManager : MonoBehaviour, IObserver
-{  
-    private int _playerLifes;
+public class GameManager : MonoBehaviour
+{
+    public Model model;
+    public string StartShootType = K.SHOOT_TYPE_AUTOMATIC;
+    public string mapName = "MAP 1";
+
     private bool _gameOver;
     private Facade _facade;
 
@@ -16,46 +19,43 @@ public class GameManager : MonoBehaviour, IObserver
     {
         _facade = new Facade();
         _gameOver = false;
+        print("Start Shoot Type: " + StartShootType);
+        print("Map name: " + mapName);
 
-        GameObject.FindGameObjectWithTag(Config.TAG_PLAYER).GetComponent<Player>().AddObserver(this);
-
-        Factory.AddShootStrategy(Config.SHOOT_TYPE_AUTOMATIC, new ShootTypeAutomatic(Config.SHOOT_RATE_AUTOMATIC));
-        Factory.AddShootStrategy(Config.SHOOT_TYPE_LASER, new ShootTypeLaser());
-        Factory.AddShootStrategy(Config.SHOOT_TYPE_BOMB, new ShootTypeBomb(Config.SHOOT_RATE_BOMB));
+        Factory.AddShootStrategy(K.SHOOT_TYPE_AUTOMATIC, new ShootTypeAutomatic(K.SHOOT_RATE_AUTOMATIC));
+        Factory.AddShootStrategy(K.SHOOT_TYPE_LASER, new ShootTypeLaser());
+        Factory.AddShootStrategy(K.SHOOT_TYPE_BOMB, new ShootTypeBomb(K.SHOOT_RATE_BOMB));
     }
 
     private void Update()
     {
         if (_gameOver && Input.GetKeyDown(KeyCode.Return))
         {
-            // TODO : Cambiar reinicializacion de statics
-            EnemySpawner.asteroidsCount = Config.ASTEROIDS_COUNT_LEVEL1;
+            EnemySpawner.asteroidsCount = K.ASTEROIDS_COUNT_LEVEL1;
             Asteroid._count = 0;
-            SceneManager.LoadScene(0);
+            ScreenManager.instance.PopScreen();
         }
-
-        //if (_playerReference.life == 0 && !_gameOver) GameOver("You Lose");
         if (_gameOver) return;
-        var asteroids = GameObject.FindGameObjectWithTag(Config.TAG_ENEMIES).GetComponentsInChildren<Asteroid>().Where(a => a.gameObject.activeInHierarchy);
-        GameOver(_facade.CheckEndCondition(_playerLifes, asteroids, EnemySpawner.asteroidsCount));
+        //var asteroids = GameObject.FindGameObjectWithTag(K.TAG_ENEMIES).GetComponentsInChildren<Asteroid>().Where(a => a.gameObject.activeInHierarchy);
+        //GameOver(_facade.CheckEndCondition(_playerLifes, asteroids, EnemySpawner.asteroidsCount));
     }
 
     private void GameOver(string s)
     {
         switch (s)
         {
-            case Config.FACADE_MSG_WIN:
+            case K.FACADE_MSG_WIN:
                 {
                     _gameOver = true;
 
                 }
                 break;
-            case Config.FACADE_MSG_TIE:
+            case K.FACADE_MSG_TIE:
                 {
                     _gameOver = true;
                 }
                 break;
-            case Config.FACADE_MSG_LOSE:
+            case K.FACADE_MSG_LOSE:
                 {
                     _gameOver = true;
                 }
@@ -64,17 +64,5 @@ public class GameManager : MonoBehaviour, IObserver
                 break;
         }
         GetComponent<UIManager>().GameOver(s);
-    }
-
-    public void Notify(GameObject caller, string msg)
-    {
-        switch (msg)
-        {
-            case Config.OBSERVER_PLAYER_LIFES:
-                _playerLifes = caller.GetComponent<Player>().life;
-                break;
-            default:
-                break;
-        }
     }
 }

@@ -3,12 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using System;
 
-public class Player : MonoBehaviour, IObservable, IDecoratorProxy
+public class Player : MonoBehaviour, IDecoratorProxy, IObserver
 {
     public GameObject explosion;
-    public int life, score;
-    private GameObject _player;
-    private List<IObserver> _obs = new List<IObserver>();
 
     public IDecoratorSecondShip SecondShip;
 
@@ -16,37 +13,8 @@ public class Player : MonoBehaviour, IObservable, IDecoratorProxy
 
     void Start()
     {
-        _player = gameObject;
-        Notify(Config.OBSERVER_PLAYER_LIFES);
         SecondShip.gameObject.SetActive(false);
-    }
-
-    public void SetLife(int dmg)
-    {
-        life -= dmg;
-        Notify(Config.OBSERVER_PLAYER_LIFES);
-        if (life == 0)
-        {
-            Destroy();
-        }
-    }
-
-    public void AddObserver(IObserver obs)
-    {
-        if (!_obs.Contains(obs)) _obs.Add(obs);
-    }
-
-    public void RemoveObserver(IObserver obs)
-    {
-        if (_obs.Contains(obs)) _obs.Remove(obs);
-    }
-
-    public void Notify(string msg)
-    {
-        foreach (var o in _obs)
-        {
-            o.Notify(gameObject, msg);
-        }
+        GameObject.FindGameObjectWithTag(K.TAG_MODEL).GetComponent<Model>().AddObserver(this);
     }
 
     /*void OnTriggerEnter2D(Collider2D coll)
@@ -84,23 +52,13 @@ public class Player : MonoBehaviour, IObservable, IDecoratorProxy
 
     }*/
 
-    public void ExtraLife()
+    public void ExtraShip()
     {
-        if (life == Config.PLAYER_LIFES)
+        if (WithSecondShip == true)
         {
-            if(WithSecondShip==true)
-            {
-                SecondShip.gameObject.SetActive(true);
-                SecondShip.flagDestroy = false;
-            }
-           
+            SecondShip.gameObject.SetActive(true);
+            SecondShip.flagDestroy = false;
         }
-        else
-        {
-            life++;
-            Notify(Config.OBSERVER_PLAYER_LIFES);
-        }
-
     }
 
     public void LateUpdate()
@@ -112,14 +70,27 @@ public class Player : MonoBehaviour, IObservable, IDecoratorProxy
 
     }
 
-    public void Destroy()
+    public void DestroyShip()
     {
         if (SecondShip != null)
         {
-            SecondShip.Destroy();
+            SecondShip.DestroyShip();
             SecondShip = null;
         }
-        Destroy(this.gameObject);
+        Destroy(gameObject);
     }
-
+    public void Notify(GameObject caller, string msg)
+    {
+        switch (msg)
+        {
+            case K.OBSERVER_PLAYER_ADD_LIVES:
+                var tempLives = caller.GetComponent<Model>().currentLives;
+                var tempMaxLives = caller.GetComponent<Model>().maxLives;
+                if (tempLives == tempMaxLives) ExtraShip();
+                if (tempLives <= 0) DestroyShip();
+                break;
+            default:
+                break;
+        }
+    }
 }
