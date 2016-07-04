@@ -3,7 +3,7 @@ using System.Collections;
 using System;
 using System.Collections.Generic;
 
-public class Asteroid : MonoBehaviourCameraBounds, IReusable, IDecoratorAsteroid
+public class Asteroid : MonoBehaviourCameraBounds, IReusable
 {
     public static int _count = 0;
 
@@ -13,7 +13,17 @@ public class Asteroid : MonoBehaviourCameraBounds, IReusable, IDecoratorAsteroid
     public bool isOutOfScreen { private set; get; }
 
     private Vector3 _position, _rotation;
-    private IDecoratorAsteroid _decorator;
+    private DecoratorAsteroid _decorator;
+    private ObjectPool<Powerup>[] _poolManagerRef;
+
+    protected override void Start()
+    {
+        base.Start();
+        _poolManagerRef = new ObjectPool<Powerup>[3];
+        _poolManagerRef[0] = GameObject.FindGameObjectWithTag(K.TAG_MANAGERS).GetComponent<PoolManager>().poolAutomaticPowerUps;
+        _poolManagerRef[1] = GameObject.FindGameObjectWithTag(K.TAG_MANAGERS).GetComponent<PoolManager>().poolLaserPowerUps;
+        _poolManagerRef[2] = GameObject.FindGameObjectWithTag(K.TAG_MANAGERS).GetComponent<PoolManager>().poolBombPowerUps;
+    }
 
     public void OnAcquire()
     {
@@ -35,7 +45,7 @@ public class Asteroid : MonoBehaviourCameraBounds, IReusable, IDecoratorAsteroid
     {
         base.Update();
         Execute(gameObject);
-        if (_decorator != null) _decorator.Execute(gameObject);
+        if (_decorator != null) _decorator.Execute(transform);
         CheckHP();
     }
 
@@ -44,12 +54,19 @@ public class Asteroid : MonoBehaviourCameraBounds, IReusable, IDecoratorAsteroid
         if (hp <= 0)
         {
             GameObject.FindGameObjectWithTag(K.TAG_MODEL).GetComponent<Model>().AddScore(score);
-            if (UnityEngine.Random.Range(0, 5) > 2)
+            var rnd = UnityEngine.Random.Range(0, 10);
+            if (rnd <= 2)
             {
                 //print("new");
                 //GameObject NewBonus = Instantiate(ExtraLife, transform.position, Quaternion.identity) as GameObject;
                 GameObject instance = Instantiate(Resources.Load("Prefabs/NaveBonus", typeof(GameObject))) as GameObject;
                 instance.transform.position = transform.position;
+            }
+            else if (rnd <= 6)
+            {
+                rnd = UnityEngine.Random.Range(0, 3);
+                var go = _poolManagerRef[rnd].GetObject();
+                go.transform.position = transform.position;
             }
 
             switch (gameObject.layer)
@@ -106,7 +123,7 @@ public class Asteroid : MonoBehaviourCameraBounds, IReusable, IDecoratorAsteroid
         }
     }
 
-    public void SetDecorator(IDecoratorAsteroid decorator)
+    public void SetDecorator(DecoratorAsteroid decorator)
     {
         _decorator = decorator;
     }

@@ -17,6 +17,7 @@ public class K
     public const int LAYER_BIG_ASTEROID = 14;
     public const int LAYER_BOMB = 15;
     public const int LAYER_SECOND_SHIP = 16;
+    public const int LAYER_POWERUP = 17;
 
     // ===== TAGS =====
     public const string TAG_PLAYER = "Player";
@@ -31,11 +32,6 @@ public class K
     public const string SHOOT_TYPE_AUTOMATIC = "Automatic";
     public const string SHOOT_TYPE_LASER = "Laser";
     public const string SHOOT_TYPE_BOMB = "Bomb";
-
-    // ===== POWERUP TYPE =====
-    public const string POWERUP_TYPE_AUTOMATIC = "TripleBullet";
-    public const string POWERUP_TYPE_LASER = "SuperLaser";
-    public const string POWERUP_TYPE_BOMB = "BigBomb";
 
     // ===== BULLETS CONFIG =====
     public const float SHOOT_RATE_AUTOMATIC = 0.25f;
@@ -60,4 +56,9 @@ public class K
     // ===== ASTEROIDS COUNT =====
     public const int ASTEROIDS_COUNT_LEVEL1 = 20;
     public const float ASTEROIDS_SPAWN_TIMER = 5f;
+
+    // ===== POWERUP NAMES =====
+    public const string POWERUP_AUTOMATIC = SHOOT_TYPE_AUTOMATIC;
+    public const string POWERUP_LASER = SHOOT_TYPE_LASER;
+    public const string POWERUP_BOMB = SHOOT_TYPE_BOMB;
 }

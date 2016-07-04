@@ -11,8 +11,8 @@ GameObject:
   - 212: {fileID: 21202324}
   - 61: {fileID: 6159538}
   - 114: {fileID: 11454324}
-  m_Layer: 0
-  m_Name: Powerup
+  m_Layer: 17
+  m_Name: PowerupBomb
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -55,9 +55,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3987dbbb5c7938a44958d9e239fe369a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  powerupAutomatic: 0
-  powerupLaser: 1
-  powerupBomb: 0
+  namePowerup: Bomb
+  lifeTime: 5
 --- !u!212 &21202324
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -85,7 +84,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: a381cdcd34df09643a465bb68f22780a, type: 3}
-  m_Color: {r: 0.5845842, g: 1, b: 0.5294118, a: 1}
+  m_Color: {r: 0.5, g: 0.5, b: 0.5, a: 1}
   m_FlipX: 0
   m_FlipY: 0
 --- !u!1001 &100100000
@@ -94,7 +93,35 @@ Prefab:
   serializedVersion: 2
   m_Modification:
     m_TransformParent: {fileID: 0}
-    m_Modifications: []
+    m_Modifications:
+    - target: {fileID: 0}
+      propertyPath: m_Name
+      value: PowerupAutomatic
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_Color.r
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_Color.g
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_Color.b
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_Layer
+      value: 17
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: lifeTime
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: namePowerup
+      value: Bomb
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 196220}

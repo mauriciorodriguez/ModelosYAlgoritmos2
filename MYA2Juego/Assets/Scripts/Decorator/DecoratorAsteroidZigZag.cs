@@ -2,26 +2,35 @@
 using System.Collections;
 using System;
 
-public class DecoratorAsteroidZigZag : IDecoratorAsteroid
+public class DecoratorAsteroidZigZag : DecoratorAsteroid
 {
-    private float speed = 100;
-    private IDecoratorAsteroid _decorator;
+    public DecoratorAsteroidZigZag(DecoratorAsteroid nxt = null)
+    {
+        _nextDeco = nxt;
+    }
 
-    public void Execute(GameObject go)
+    private float speed = 100;
+
+    public override DecoratorAsteroid Clone()
+    {
+        DecoratorAsteroid nextClone = null;
+        if (_nextDeco != null)
+        {
+            nextClone = _nextDeco.Clone();
+        }
+        var thisClone = new DecoratorAsteroidZigZag(nextClone);
+        return thisClone;
+    }
+
+    public override void Execute(Transform go)
     {
         Move(go);
-        if (_decorator != null) _decorator.Execute(go);
+        if (_nextDeco != null) _nextDeco.Execute(go);
     }
 
-    private void Move(GameObject go)
+    private void Move(Transform go)
     {
-        // TODO : Checkear formula
         var xMovement = new Vector3(Mathf.Sin(Time.time * speed), 0, 0);
-        go.transform.position += xMovement;
-    }
-
-    public void SetDecorator(IDecoratorAsteroid decorator)
-    {
-        _decorator = decorator;
+        go.position += xMovement;
     }
 }

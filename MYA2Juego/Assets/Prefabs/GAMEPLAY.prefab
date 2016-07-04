@@ -1222,11 +1222,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 3
   rotationSpeed: 180
-  powerupType: 
   _laser: {fileID: 145266}
-  powerupAutomatic: 0
-  powerupLaser: 0
-  powerupBomb: 0
 --- !u!114 &11480514
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1287,7 +1283,10 @@ MonoBehaviour:
   prefabSmallEnemy: {fileID: 102196, guid: 8ee3510541bf36147b1eb1660c1948ab, type: 2}
   prefabMediumEnemy: {fileID: 105878, guid: 3bcc3113cf7fdad4983dedc04e4d3ed1, type: 2}
   prefabBigEnemy: {fileID: 105644, guid: aac9a539417991b4a92fab437ceea1cb, type: 2}
-  prefabSuperBomb: {fileID: 103962, guid: 0586763409bd8e24d986578852812f85, type: 2}
+  prefabPowerupAutomatic: {fileID: 196220, guid: 617c51b3f9353bd4bb34c9cadef2772c,
+    type: 2}
+  prefabPowerupLaser: {fileID: 196220, guid: fb973673ce8465e4581484a9ef010dae, type: 2}
+  prefabPowerupBomb: {fileID: 196220, guid: 133462f7e33bae146b4daa9f19976281, type: 2}
 --- !u!120 &12078492
 LineRenderer:
   m_ObjectHideFlags: 1

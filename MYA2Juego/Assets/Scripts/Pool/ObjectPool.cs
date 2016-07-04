@@ -9,11 +9,9 @@ public class ObjectPool<T> where T : IReusable
     private Stack<GameObject> _objects;
     private FactoryDelegate _factory;
     private GameObject _containerGameObject;
-    private IDecoratorAsteroid _decorator;
 
-    public ObjectPool(FactoryDelegate factory, string containerN, IDecoratorAsteroid deco = null, int quantity = 5)
+    public ObjectPool(FactoryDelegate factory, string containerN, int quantity = 5)
     {
-        _decorator = deco;
         _objects = new Stack<GameObject>();
         _factory = factory;
         _containerGameObject = GameObject.FindGameObjectWithTag(containerN);
@@ -52,11 +50,6 @@ public class ObjectPool<T> where T : IReusable
         var elem = _factory();
         elem.GetComponent<T>().OnCreate();
         elem.gameObject.transform.parent = _containerGameObject.transform;
-        var aux = elem.GetComponent<Asteroid>();
-        if (aux != null && _decorator != null)
-        {
-            elem.GetComponent<Asteroid>().SetDecorator(_decorator);
-        }
         return elem;
     }
 }

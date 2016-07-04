@@ -1,28 +1,67 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using System;
 
-public class Powerup : MonoBehaviour
+public class Powerup : MonoBehaviour, IReusable
 {
-    void Start ()
-    {
-	}
-	
-	void Update ()
-    {
-	
-	}
+    public string namePowerup;
+    public float lifeTime;
 
-    void OnTriggerEnter2D(Collider2D coll)
+    private float _currentLifetime;
+    private PoolManager _poolReference;
+
+    private void Start()
     {
-        if(coll.gameObject.layer == K.LAYER_PLAYER)
+        _poolReference = GameObject.FindGameObjectWithTag(K.TAG_MANAGERS).GetComponent<PoolManager>();
+    }
+
+    public virtual void OnAcquire()
+    {
+        gameObject.SetActive(true);
+        _currentLifetime = lifeTime;
+    }
+
+    public virtual void OnCreate()
+    {
+        transform.parent = GameObject.FindGameObjectWithTag(K.TAG_POWERUPS).transform;
+        gameObject.SetActive(false);
+    }
+
+    public virtual void OnRelease()
+    {
+        gameObject.SetActive(false);
+    }
+
+    private void Update()
+    {
+        _currentLifetime -= Time.deltaTime;
+        if (_currentLifetime <= 0)
+        {
+            switch (namePowerup)
+            {
+                case K.POWERUP_AUTOMATIC:
+                    _poolReference.poolAutomaticPowerUps.PutBackObject(gameObject);
+                    break;
+                case K.POWERUP_LASER:
+                    _poolReference.poolLaserPowerUps.PutBackObject(gameObject);
+                    break;
+                case K.POWERUP_BOMB:
+                    _poolReference.poolBombPowerUps.PutBackObject(gameObject);
+                    break;
+                default:
+                    break;
+            }
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D coll)
+    {
+        if (coll.gameObject.layer == K.LAYER_PLAYER)
         {
             var player = coll.gameObject.GetComponent<InputControllerPlayer>();
-
-            if (player.shootType == K.SHOOT_TYPE_AUTOMATIC) player.powerupType = K.POWERUP_TYPE_AUTOMATIC;
-            else if (player.shootType == K.SHOOT_TYPE_LASER) player.powerupType = K.POWERUP_TYPE_LASER;
-            else player.powerupType = K.POWERUP_TYPE_BOMB;
-            Destroy(this.gameObject);
+            player.PowerupGrab(namePowerup);
+            Destroy(gameObject);
         }
     }
 }

@@ -31,7 +31,8 @@ public class EnemySpawner : MonoBehaviour
         asteroidsCount--;
         var go = _poolManagerRef[Mathf.FloorToInt(Random.Range(0, 3))].GetObject();
         go.transform.position = transform.position;
-        Vector3 randomDirection = new Vector3(Random.Range(0, 360), Random.Range(0, 360), 0);
+        float cameraWidth = Camera.main.orthographicSize * Camera.main.aspect;
+        Vector3 randomDirection = new Vector3(Random.Range(-cameraWidth, cameraWidth), Random.Range(-cameraWidth, cameraWidth), 0);
         go.transform.up = randomDirection - go.transform.up;
     }
 }
