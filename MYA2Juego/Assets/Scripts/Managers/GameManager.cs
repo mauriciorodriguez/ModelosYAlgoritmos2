@@ -38,7 +38,7 @@ public class GameManager : MonoBehaviour
             ScreenManager.instance.PopScreen();
         }
         if (_gameOver) return;
-        facade.Update(Time.deltaTime);
+        facade.Update();
         GameOver(facade.CheckEndCondition());
     }
 

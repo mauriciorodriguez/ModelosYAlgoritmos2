@@ -1,12 +1,11 @@
 ﻿using UnityEngine;
 using System.Collections;
-using System;
 
-public class DecoratorAsteroidZigZag : DecoratorAsteroid
+public class DecoratorAsteroidScale : DecoratorAsteroid
 {
-    private float speed = 50;
+    private float amount = 3;
 
-    public DecoratorAsteroidZigZag(DecoratorAsteroid nxt = null)
+    public DecoratorAsteroidScale(DecoratorAsteroid nxt = null)
     {
         _nextDeco = nxt;
     }
@@ -18,7 +17,7 @@ public class DecoratorAsteroidZigZag : DecoratorAsteroid
         {
             nextClone = _nextDeco.Clone();
         }
-        var thisClone = new DecoratorAsteroidZigZag(nextClone);
+        var thisClone = new DecoratorAsteroidScale(nextClone);
         return thisClone;
     }
 
@@ -30,7 +29,7 @@ public class DecoratorAsteroidZigZag : DecoratorAsteroid
 
     private void Move(Transform go)
     {
-        var xMovement = new Vector3(Mathf.Sin((Time.time/10) * speed), 0, 0);
-        go.localPosition = xMovement;
+        var xyScale = new Vector3(Mathf.PingPong(Time.time, 1) * amount, Mathf.PingPong(Time.time, 1) * amount, 0);
+        go.localScale = xyScale;
     }
 }

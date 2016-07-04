@@ -39,9 +39,9 @@ public class Facade : IObserver
         return K.FACADE_MSG_CONTROL;
     }
 
-    public void Update(float deltaTime)
+    public void Update()
     {        
-        waitSeconds += deltaTime;
+        waitSeconds += Time.deltaTime;
     }
 
     public void Notify(Model caller, string msg)

@@ -24,10 +24,14 @@ public class EnemySpawner : MonoBehaviour
         switch (_asteroidToClone.gameObject.layer)
         {
             case K.LAYER_SMALL_ASTEROID:
-                _asteroidToClone.SetDecorator(new DecoratorAsteroidZigZag());
+                _asteroidToClone.SetDecorator(new DecoratorAsteroidZigZag(new DecoratorAsteroidScale()));
                 break;
-            case K.LAYER_MEDIUM_ASTEROID: break;
-            case K.LAYER_BIG_ASTEROID: break;
+            case K.LAYER_MEDIUM_ASTEROID:
+                _asteroidToClone.SetDecorator(new DecoratorAsteroidScale(new DecoratorAsteroidRotate()));
+                break;
+            case K.LAYER_BIG_ASTEROID:
+                _asteroidToClone.SetDecorator(new DecoratorAsteroidRotate(new DecoratorAsteroidZigZag()));
+                break;
             default:
                 break;
         }
