@@ -3,6 +3,7 @@ using System.Collections;
 
 public class PoolManager : MonoBehaviour
 {
+    public static PoolManager instance;
     public GameObject prefabBullet, prefabBomb, prefabSmallEnemy, prefabMediumEnemy, prefabBigEnemy, prefabPowerupAutomatic, prefabPowerupLaser, prefabPowerupBomb;
     public ObjectPool<Asteroid> poolSmallEnemies { get; private set; }
     public ObjectPool<Asteroid> poolMediumEnemies { get; private set; }
@@ -16,6 +17,7 @@ public class PoolManager : MonoBehaviour
 
     private void Awake()
     {
+        if (instance == null) instance = this;
         poolBullets = new ObjectPool<Ammo>(() => Instantiate(prefabBullet), K.TAG_AMMO);
         poolBombs = new ObjectPool<Ammo>(() => Instantiate(prefabBomb), K.TAG_AMMO);
 

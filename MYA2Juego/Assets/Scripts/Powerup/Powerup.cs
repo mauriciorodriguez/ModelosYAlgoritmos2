@@ -9,12 +9,6 @@ public class Powerup : MonoBehaviour, IReusable
     public float lifeTime;
 
     private float _currentLifetime;
-    private PoolManager _poolReference;
-
-    private void Start()
-    {
-        _poolReference = GameObject.FindGameObjectWithTag(K.TAG_MANAGERS).GetComponent<PoolManager>();
-    }
 
     public virtual void OnAcquire()
     {
@@ -41,13 +35,13 @@ public class Powerup : MonoBehaviour, IReusable
             switch (namePowerup)
             {
                 case K.POWERUP_AUTOMATIC:
-                    _poolReference.poolAutomaticPowerUps.PutBackObject(gameObject);
+                    PoolManager.instance.poolAutomaticPowerUps.PutBackObject(gameObject);
                     break;
                 case K.POWERUP_LASER:
-                    _poolReference.poolLaserPowerUps.PutBackObject(gameObject);
+                    PoolManager.instance.poolLaserPowerUps.PutBackObject(gameObject);
                     break;
                 case K.POWERUP_BOMB:
-                    _poolReference.poolBombPowerUps.PutBackObject(gameObject);
+                    PoolManager.instance.poolBombPowerUps.PutBackObject(gameObject);
                     break;
                 default:
                     break;

@@ -1015,6 +1015,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9954f1aaaaefe5c4c84859738dafce0a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  asteroidPrefabToClone: {fileID: 102196, guid: 8ee3510541bf36147b1eb1660c1948ab,
+    type: 2}
 --- !u!114 &11430880
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1070,6 +1072,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9954f1aaaaefe5c4c84859738dafce0a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  asteroidPrefabToClone: {fileID: 105644, guid: aac9a539417991b4a92fab437ceea1cb,
+    type: 2}
 --- !u!114 &11433610
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1234,6 +1238,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9954f1aaaaefe5c4c84859738dafce0a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  asteroidPrefabToClone: {fileID: 105644, guid: aac9a539417991b4a92fab437ceea1cb,
+    type: 2}
 --- !u!114 &11487212
 MonoBehaviour:
   m_ObjectHideFlags: 1

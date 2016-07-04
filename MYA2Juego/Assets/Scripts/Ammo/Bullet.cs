@@ -30,7 +30,7 @@ public class Bullet : Ammo, IReusable
         base.Update();
         if (_currentLifetime <= 0)
         {
-            GameObject.FindGameObjectWithTag(K.TAG_MANAGERS).GetComponent<PoolManager>().poolBullets.PutBackObject(gameObject);
+            PoolManager.instance.poolBullets.PutBackObject(gameObject);
         }
     }
 }

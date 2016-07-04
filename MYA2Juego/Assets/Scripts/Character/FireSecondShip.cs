@@ -11,12 +11,9 @@ public class FireSecondShip : MonoBehaviour
     public GameObject Master;
 
     private IStrategyShootType _shootTypeStrategy;
-    private PoolManager _poolManagerRef;
-
 
     void Start()
     {
-        _poolManagerRef = GameObject.FindGameObjectWithTag(K.TAG_MANAGERS).GetComponent<PoolManager>();
         shootType = K.SHOOT_TYPE_AUTOMATIC;
         _shootTypeStrategy = new ShootTypeAutomatic(K.SHOOT_RATE_AUTOMATIC);
     }
@@ -65,13 +62,13 @@ public class FireSecondShip : MonoBehaviour
         switch (shootType)
         {
             case K.SHOOT_TYPE_AUTOMATIC:
-                _shootTypeStrategy.SpawnBullet(transform, _poolManagerRef.poolBullets);
+                _shootTypeStrategy.SpawnBullet(transform, PoolManager.instance.poolBullets);
                 break;
             case K.SHOOT_TYPE_LASER:
-               // _shootTypeStrategy.SpawnBullet(transform, _poolManagerRef.poolBullets);
+                // _shootTypeStrategy.SpawnBullet(transform, PoolManager.instance.poolBullets);
                 break;
             case K.SHOOT_TYPE_BOMB:
-                _shootTypeStrategy.SpawnBullet(transform, _poolManagerRef.poolBombs);
+                _shootTypeStrategy.SpawnBullet(transform, PoolManager.instance.poolBombs);
                 break;
             default:
                 break;

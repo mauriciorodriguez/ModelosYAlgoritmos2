@@ -11,12 +11,10 @@ public class InputControllerPlayer : MonoBehaviourCameraBounds
 
     private Vector3 rotationVector;
     private IStrategyShootType _shootTypeStrategy;
-    private PoolManager _poolManagerRef;
 
     protected override void Start()
     {
         base.Start();
-        _poolManagerRef = GameObject.FindGameObjectWithTag(K.TAG_MANAGERS).GetComponent<PoolManager>();
 
         shootType = GameObject.FindGameObjectWithTag(K.TAG_MANAGERS).GetComponent<GameManager>().StartShootType;
         _shootTypeStrategy = Factory.GetShootStrategy(shootType);
@@ -47,13 +45,13 @@ public class InputControllerPlayer : MonoBehaviourCameraBounds
         switch (shootType)
         {
             case K.SHOOT_TYPE_AUTOMATIC:
-                _shootTypeStrategy.SpawnBullet(transform, _poolManagerRef.poolBullets);
+                _shootTypeStrategy.SpawnBullet(transform, PoolManager.instance.poolBullets);
                 break;
             case K.SHOOT_TYPE_LASER:
                 _laser.SetActive(true);
                 break;
             case K.SHOOT_TYPE_BOMB:
-                _shootTypeStrategy.SpawnBullet(transform, _poolManagerRef.poolBombs);
+                _shootTypeStrategy.SpawnBullet(transform, PoolManager.instance.poolBombs);
                 break;
             default:
                 break;

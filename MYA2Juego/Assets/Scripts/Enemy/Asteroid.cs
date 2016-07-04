@@ -20,9 +20,9 @@ public class Asteroid : MonoBehaviourCameraBounds, IReusable
     {
         base.Start();
         _poolManagerRef = new ObjectPool<Powerup>[3];
-        _poolManagerRef[0] = GameObject.FindGameObjectWithTag(K.TAG_MANAGERS).GetComponent<PoolManager>().poolAutomaticPowerUps;
-        _poolManagerRef[1] = GameObject.FindGameObjectWithTag(K.TAG_MANAGERS).GetComponent<PoolManager>().poolLaserPowerUps;
-        _poolManagerRef[2] = GameObject.FindGameObjectWithTag(K.TAG_MANAGERS).GetComponent<PoolManager>().poolBombPowerUps;
+        _poolManagerRef[0] = PoolManager.instance.poolAutomaticPowerUps;
+        _poolManagerRef[1] = PoolManager.instance.poolLaserPowerUps;
+        _poolManagerRef[2] = PoolManager.instance.poolBombPowerUps;
     }
 
     public void OnAcquire()
@@ -32,6 +32,7 @@ public class Asteroid : MonoBehaviourCameraBounds, IReusable
 
     public void OnRelease()
     {
+        _decorator = null;
         gameObject.SetActive(false);
     }
 
@@ -44,8 +45,8 @@ public class Asteroid : MonoBehaviourCameraBounds, IReusable
     protected override void Update()
     {
         base.Update();
-        Execute(gameObject);
-        if (_decorator != null) _decorator.Execute(transform);
+        transform.position += transform.up * speed * Time.deltaTime;
+        if (_decorator != null) _decorator.Execute(GetComponentInChildren<SpriteRenderer>().transform);
         CheckHP();
     }
 
@@ -72,17 +73,17 @@ public class Asteroid : MonoBehaviourCameraBounds, IReusable
             switch (gameObject.layer)
             {
                 case K.LAYER_SMALL_ASTEROID:
-                    GameObject.FindGameObjectWithTag(K.TAG_MANAGERS).GetComponent<PoolManager>().poolSmallEnemies.PutBackObject(gameObject);
+                    PoolManager.instance.poolSmallEnemies.PutBackObject(gameObject);
                     var _exploSmall = Instantiate(explosion, transform.position, Quaternion.identity);
                     Destroy(_exploSmall, 2);
                     break;
                 case K.LAYER_MEDIUM_ASTEROID:
-                    GameObject.FindGameObjectWithTag(K.TAG_MANAGERS).GetComponent<PoolManager>().poolMediumEnemies.PutBackObject(gameObject);
+                    PoolManager.instance.poolMediumEnemies.PutBackObject(gameObject);
                     var _exploMedium = Instantiate(explosion, transform.position, Quaternion.identity);
                     Destroy(_exploMedium, 2);
                     break;
                 case K.LAYER_BIG_ASTEROID:
-                    GameObject.FindGameObjectWithTag(K.TAG_MANAGERS).GetComponent<PoolManager>().poolBigEnemies.PutBackObject(gameObject);
+                    PoolManager.instance.poolBigEnemies.PutBackObject(gameObject);
                     var _exploBig = Instantiate(explosion, transform.position, Quaternion.identity);
                     Destroy(_exploBig, 2);
                     break;
@@ -90,19 +91,19 @@ public class Asteroid : MonoBehaviourCameraBounds, IReusable
                     break;
             }
         }
-    }    
+    }
 
     private void OnTriggerEnter2D(Collider2D col)
     {
         if (col.gameObject.layer == K.LAYER_BULLET)
         {
             hp -= col.GetComponent<Ammo>().damage;
-            GameObject.FindGameObjectWithTag(K.TAG_MANAGERS).GetComponent<PoolManager>().poolBullets.PutBackObject(col.gameObject);
+            PoolManager.instance.poolBullets.PutBackObject(col.gameObject);
         }
         else if (col.gameObject.layer == K.LAYER_BOMB)
         {
             hp -= col.GetComponent<Ammo>().damage;
-            GameObject.FindGameObjectWithTag(K.TAG_MANAGERS).GetComponent<PoolManager>().poolBombs.PutBackObject(col.gameObject);
+            PoolManager.instance.poolBombs.PutBackObject(col.gameObject);
         }
         else if (col.gameObject.layer == K.LAYER_PLAYER)
         {
@@ -116,20 +117,37 @@ public class Asteroid : MonoBehaviourCameraBounds, IReusable
 
         else if (col.gameObject.layer == K.LAYER_SECOND_SHIP)
         {
-            if(col.gameObject.GetComponent<IDecoratorSecondShip>() != null)
+            if (col.gameObject.GetComponent<IDecoratorSecondShip>() != null)
             {
                 col.gameObject.GetComponent<IDecoratorSecondShip>().DestroyShip();
             }
         }
     }
 
-    public void SetDecorator(DecoratorAsteroid decorator)
+    public void SetDecorator(DecoratorAsteroid decorator = null)
     {
         _decorator = decorator;
     }
 
-    public void Execute(GameObject go)
+    public GameObject Clone()
     {
-        transform.position += transform.up * speed * Time.deltaTime;
+        GameObject go;
+        switch (gameObject.layer)
+        {
+            case K.LAYER_SMALL_ASTEROID:
+                go = PoolManager.instance.poolSmallEnemies.GetObject();
+                break;
+            case K.LAYER_MEDIUM_ASTEROID:
+                go = PoolManager.instance.poolMediumEnemies.GetObject();
+                break;
+            case K.LAYER_BIG_ASTEROID:
+                go = PoolManager.instance.poolBigEnemies.GetObject();
+                break;
+            default:
+                go = null;
+                break;
+        }
+        if (_decorator != null) go.GetComponent<Asteroid>().SetDecorator(_decorator.Clone());
+        return go;
     }
 }

@@ -4,16 +4,33 @@ using System.Collections;
 public class EnemySpawner : MonoBehaviour
 {
     public static int asteroidsCount = K.ASTEROIDS_COUNT_LEVEL1;
+    public GameObject asteroidPrefabToClone;
 
     private float _timer;
     private ObjectPool<Asteroid>[] _poolManagerRef;
+    private Asteroid _asteroidToClone;
 
     private void Start()
     {
         _poolManagerRef = new ObjectPool<Asteroid>[3];
-        _poolManagerRef[0] = GameObject.FindGameObjectWithTag(K.TAG_MANAGERS).GetComponent<PoolManager>().poolSmallEnemies;
-        _poolManagerRef[1] = GameObject.FindGameObjectWithTag(K.TAG_MANAGERS).GetComponent<PoolManager>().poolMediumEnemies;
-        _poolManagerRef[2] = GameObject.FindGameObjectWithTag(K.TAG_MANAGERS).GetComponent<PoolManager>().poolBigEnemies;
+        _poolManagerRef[0] = PoolManager.instance.poolSmallEnemies;
+        _poolManagerRef[1] = PoolManager.instance.poolMediumEnemies;
+        _poolManagerRef[2] = PoolManager.instance.poolBigEnemies;
+
+        _asteroidToClone = Instantiate(asteroidPrefabToClone).GetComponent<Asteroid>();
+        _asteroidToClone.gameObject.SetActive(false);
+        _asteroidToClone.transform.parent = transform;
+        // SETEO DE DECORATORS SEGUN ASTEROID
+        switch (_asteroidToClone.gameObject.layer)
+        {
+            case K.LAYER_SMALL_ASTEROID:
+                _asteroidToClone.SetDecorator(new DecoratorAsteroidZigZag());
+                break;
+            case K.LAYER_MEDIUM_ASTEROID: break;
+            case K.LAYER_BIG_ASTEROID: break;
+            default:
+                break;
+        }
     }
 
     private void Update()
@@ -29,7 +46,7 @@ public class EnemySpawner : MonoBehaviour
     private void SpawnEnemy()
     {
         asteroidsCount--;
-        var go = _poolManagerRef[Mathf.FloorToInt(Random.Range(0, 3))].GetObject();
+        var go = _asteroidToClone.Clone();
         go.transform.position = transform.position;
         float cameraWidth = Camera.main.orthographicSize * Camera.main.aspect;
         Vector3 randomDirection = new Vector3(Random.Range(-cameraWidth, cameraWidth), Random.Range(-cameraWidth, cameraWidth), 0);
