@@ -9,15 +9,15 @@ public class ViewScore : MonoBehaviour, IObserver
 
     private void Start()
     {
-        GameObject.FindGameObjectWithTag(K.TAG_MODEL).GetComponent<Model>().AddObserver(this);
+        GameObject.FindGameObjectWithTag(K.TAG_MANAGERS).GetComponent<GameManager>().AddObserverToModel(this);
     }
 
-    public void Notify(GameObject caller, string msg)
+    public void Notify(Model caller, string msg)
     {
         switch (msg)
         {
             case K.OBSERVER_PLAYER_SCORE:
-                scoreText.text = "SCORE: " + caller.GetComponent<Model>().score;
+                scoreText.text = "SCORE: " + caller.score;
                 break;
             default:
                 break;

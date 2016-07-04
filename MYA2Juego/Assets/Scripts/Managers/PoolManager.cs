@@ -13,7 +13,6 @@ public class PoolManager : MonoBehaviour
     public ObjectPool<Powerup> poolAutomaticPowerUps { get; private set; }
     public ObjectPool<Powerup> poolLaserPowerUps { get; private set; }
     public ObjectPool<Powerup> poolBombPowerUps { get; private set; }
-    public ObjectPool<Ammo> poolSuperBombs { get; private set; }
 
     private void Awake()
     {

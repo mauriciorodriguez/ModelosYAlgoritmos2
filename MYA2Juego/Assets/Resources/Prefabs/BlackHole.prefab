@@ -10,7 +10,7 @@ GameObject:
   - 4: {fileID: 445626}
   - 212: {fileID: 21202778}
   - 95: {fileID: 9521572}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: BlackHoleAnim
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -101,6 +101,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9954f1aaaaefe5c4c84859738dafce0a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  asteroidPrefabToClone: {fileID: 0}
 --- !u!212 &21202778
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -137,7 +138,11 @@ Prefab:
   serializedVersion: 2
   m_Modification:
     m_TransformParent: {fileID: 0}
-    m_Modifications: []
+    m_Modifications:
+    - target: {fileID: 0}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 171210}

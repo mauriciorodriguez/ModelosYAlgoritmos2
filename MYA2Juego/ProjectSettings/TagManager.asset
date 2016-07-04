@@ -9,7 +9,6 @@ TagManager:
   - Ammo
   - Powerups
   - Lifes
-  - Model
   layers:
   - Default
   - TransparentFX
@@ -29,7 +28,7 @@ TagManager:
   - Bomb
   - SecondShip
   - Powerup
-  - 
+  - Laser
   - 
   - 
   - 

@@ -60,7 +60,7 @@ GameObject:
   - 4: {fileID: 446690}
   - 212: {fileID: 21272402}
   - 95: {fileID: 9503452}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: BlackHoleAnim
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -99,22 +99,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 0
---- !u!1 &122350
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 4
-  m_Component:
-  - 4: {fileID: 433924}
-  - 114: {fileID: 11400002}
-  m_Layer: 0
-  m_Name: MODEL
-  m_TagString: Model
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
 --- !u!1 &124840
 GameObject:
   m_ObjectHideFlags: 1
@@ -180,7 +164,7 @@ GameObject:
   - 4: {fileID: 486732}
   - 212: {fileID: 21253168}
   - 95: {fileID: 9544876}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: BlackHoleAnim
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -215,8 +199,7 @@ GameObject:
   - 120: {fileID: 12091942}
   - 114: {fileID: 11460350}
   - 61: {fileID: 6149622}
-  - 50: {fileID: 5024012}
-  m_Layer: 11
+  m_Layer: 18
   m_Name: Laser
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -337,7 +320,7 @@ GameObject:
   - 4: {fileID: 439878}
   - 212: {fileID: 21248038}
   - 95: {fileID: 9564814}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: BlackHoleAnim
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -506,7 +489,6 @@ Transform:
   - {fileID: 415718}
   - {fileID: 423368}
   - {fileID: 432804}
-  - {fileID: 433924}
   m_Father: {fileID: 0}
   m_RootOrder: 0
 --- !u!4 &432804
@@ -522,18 +504,6 @@ Transform:
   - {fileID: 490202}
   m_Father: {fileID: 427074}
   m_RootOrder: 7
---- !u!4 &433924
-Transform:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 122350}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 427074}
-  m_RootOrder: 8
 --- !u!4 &439878
 Transform:
   m_ObjectHideFlags: 1
@@ -680,23 +650,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!50 &5024012
-Rigidbody2D:
-  serializedVersion: 2
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 145266}
-  m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDrag: 0
-  m_AngularDrag: 0.05
-  m_GravityScale: 1
-  m_IsKinematic: 1
-  m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 0
 --- !u!50 &5098398
 Rigidbody2D:
   serializedVersion: 2
@@ -751,7 +704,7 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_Offset: {x: -0.00000003241003, y: 2.5000002}
   serializedVersion: 2
@@ -863,19 +816,6 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
---- !u!114 &11400002
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 122350}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 787f42afb792a2e4ca352b15cac18da0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  maxLives: 5
-  currentLives: 0
 --- !u!114 &11401732
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1058,9 +998,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 687f095457bce6e4e8ddcc0e5b7ab715, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  model: {fileID: 11400002}
   StartShootType: Automatic
   mapName: MAP 1
+  maxLives: 3
 --- !u!114 &11432760
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1175,13 +1115,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 60a469d8d64b4954289c34d64245d82e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 0
-  lifeTime: 0
-  damage: 5
   laserDistance: 5
-  superWidth: 0.5
-  superHeight: 10
-  defaultWidth: 0.1
+  lasertWidth: 0.1
+  damage: 0.4
 --- !u!114 &11464552
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1206,13 +1142,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 60a469d8d64b4954289c34d64245d82e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 0
-  lifeTime: 0
-  damage: 5
   laserDistance: 5
-  superWidth: 0
-  superHeight: 0
-  defaultWidth: 0
+  lasertWidth: 0
+  damage: 0
 --- !u!114 &11465550
 MonoBehaviour:
   m_ObjectHideFlags: 1

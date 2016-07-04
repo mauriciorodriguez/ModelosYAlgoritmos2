@@ -7,7 +7,7 @@ public class Asteroid : MonoBehaviourCameraBounds, IReusable
 {
     public static int _count = 0;
 
-    public float hp, speed;
+    public float maxHp,hp, speed;
     public int damage, score;
     public GameObject explosion;
     public bool isOutOfScreen { private set; get; }
@@ -28,6 +28,7 @@ public class Asteroid : MonoBehaviourCameraBounds, IReusable
     public void OnAcquire()
     {
         gameObject.SetActive(true);
+        hp = maxHp;
     }
 
     public void OnRelease()
@@ -54,7 +55,8 @@ public class Asteroid : MonoBehaviourCameraBounds, IReusable
     {
         if (hp <= 0)
         {
-            GameObject.FindGameObjectWithTag(K.TAG_MODEL).GetComponent<Model>().AddScore(score);
+            GameObject.FindGameObjectWithTag(K.TAG_MANAGERS).GetComponent<GameManager>().facade.waitSeconds = 0;
+            GameObject.FindGameObjectWithTag(K.TAG_MANAGERS).GetComponent<GameManager>().AddScoreToModel(score);
             var rnd = UnityEngine.Random.Range(0, 10);
             if (rnd <= 2)
             {
@@ -93,6 +95,14 @@ public class Asteroid : MonoBehaviourCameraBounds, IReusable
         }
     }
 
+    private void OnTriggerStay2D(Collider2D col)
+    {
+        if (col.gameObject.layer == K.LAYER_LASER)
+        {
+            hp -= col.GetComponent<Laser>().damage;
+        }
+    }
+
     private void OnTriggerEnter2D(Collider2D col)
     {
         if (col.gameObject.layer == K.LAYER_BULLET)
@@ -107,19 +117,19 @@ public class Asteroid : MonoBehaviourCameraBounds, IReusable
         }
         else if (col.gameObject.layer == K.LAYER_PLAYER)
         {
-            GameObject.FindGameObjectWithTag(K.TAG_MODEL).GetComponent<Model>().AddLives(-1);
+            GameObject.FindGameObjectWithTag(K.TAG_MANAGERS).GetComponent<GameManager>().AddLivesToModel(-1);
             hp = 0;
         }
-        else if (col.gameObject.tag == K.TAG_ENEMIES)
+        else  if (col.gameObject.tag == K.TAG_ENEMIES)
         {
             transform.up *= -1;
         }
 
         else if (col.gameObject.layer == K.LAYER_SECOND_SHIP)
         {
-            if (col.gameObject.GetComponent<IDecoratorSecondShip>() != null)
+            if (col.gameObject.GetComponent<DecoratorSecondShip>() != null)
             {
-                col.gameObject.GetComponent<IDecoratorSecondShip>().DestroyShip();
+                col.gameObject.GetComponent<DecoratorSecondShip>().DestroyShip();
             }
         }
     }

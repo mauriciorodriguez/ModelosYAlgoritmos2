@@ -8,16 +8,18 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-    public Model model;
     public string StartShootType = K.SHOOT_TYPE_AUTOMATIC;
     public string mapName = "MAP 1";
+    public int maxLives = K.PLAYER_LIFES;
+    public Facade facade { get; private set; }
 
     private bool _gameOver;
-    private Facade _facade;
+    private Model _model;
 
     private void Awake()
     {
-        _facade = new Facade();
+        _model = new Model(maxLives);
+        facade = new Facade();
         _gameOver = false;
         print("Start Shoot Type: " + StartShootType);
         print("Map name: " + mapName);
@@ -36,8 +38,8 @@ public class GameManager : MonoBehaviour
             ScreenManager.instance.PopScreen();
         }
         if (_gameOver) return;
-        //var asteroids = GameObject.FindGameObjectWithTag(K.TAG_ENEMIES).GetComponentsInChildren<Asteroid>().Where(a => a.gameObject.activeInHierarchy);
-        //GameOver(_facade.CheckEndCondition(_playerLifes, asteroids, EnemySpawner.asteroidsCount));
+        facade.Update(Time.deltaTime);
+        GameOver(facade.CheckEndCondition());
     }
 
     private void GameOver(string s)
@@ -64,5 +66,25 @@ public class GameManager : MonoBehaviour
                 break;
         }
         GetComponent<UIManager>().GameOver(s);
+    }
+
+    public void AddLivesToModel(int i)
+    {
+        _model.AddLives(i);
+    }
+
+    public void AddScoreToModel(int i)
+    {
+        _model.AddScore(i);
+    }
+
+    public void AddObserverToModel(IObserver o)
+    {
+        _model.AddObserver(o);
+    }
+
+    public void RemoveObserverFromModel(IObserver o)
+    {
+        _model.RemoveObserver(o);
     }
 }

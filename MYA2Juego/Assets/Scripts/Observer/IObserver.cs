@@ -3,5 +3,5 @@ using System.Collections;
 
 public interface IObserver
 {
-    void Notify(GameObject caller, string msg);
+    void Notify(Model caller, string msg);
 }

@@ -37,6 +37,7 @@ public class InputControllerPlayer : MonoBehaviourCameraBounds
     public void PowerupGrab(string name)
     {
         shootType = name;
+        print("Powerup type: " + shootType);
         _shootTypeStrategy = Factory.GetShootStrategy(shootType);
     }
 

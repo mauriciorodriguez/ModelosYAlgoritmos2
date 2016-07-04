@@ -18,6 +18,7 @@ public class K
     public const int LAYER_BOMB = 15;
     public const int LAYER_SECOND_SHIP = 16;
     public const int LAYER_POWERUP = 17;
+    public const int LAYER_LASER = 18;
 
     // ===== TAGS =====
     public const string TAG_PLAYER = "Player";
@@ -26,7 +27,6 @@ public class K
     public const string TAG_AMMO = "Ammo";
     public const string TAG_POWERUPS = "Powerups";
     public const string TAG_LIFES = "Lifes";
-    public const string TAG_MODEL = "Model";
 
     // ===== SHOOT TYPE =====
     public const string SHOOT_TYPE_AUTOMATIC = "Automatic";
@@ -39,7 +39,7 @@ public class K
     public const float BULLET_LIFETIME = 2f;
     public const float LASER_MAX_DISTANCE = 5;
 
-    // ===== SHOOT TYPE =====
+    // ===== PLAYER =====
     public const int PLAYER_LIFES = 3;
 
     // ===== FACADE MSG =====

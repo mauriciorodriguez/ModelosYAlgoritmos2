@@ -3,17 +3,18 @@ using System.Collections;
 using System;
 using System.Collections.Generic;
 
-public class Model : MonoBehaviour, IObservable
+public class Model : IObservable
 {
-    public int maxLives;
-    public int currentLives;
+    public int maxLives { get; private set; }
+    public int currentLives { get; private set; }
     public int score { get; private set; }
 
     private List<IObserver> _obs;
 
-    private void Awake()
+    public Model(int maxLives)
     {
         _obs = new List<IObserver>();
+        this.maxLives = maxLives;
         currentLives = maxLives;
     }
 
@@ -31,7 +32,7 @@ public class Model : MonoBehaviour, IObservable
 
     public void Notify(string msg)
     {
-        foreach (var o in _obs) o.Notify(gameObject, msg);
+        foreach (var o in _obs) o.Notify(this, msg);
     }
 
     public void AddLives(int i)

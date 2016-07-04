@@ -5,20 +5,30 @@ using System.Collections.Generic;
 
 public class DropExtraShip : MonoBehaviour
 {
-    private Model _model;
+    public float lifeTime;
+    private GameManager _gameManagerRef;
 
     private void Start()
     {
-        _model = GameObject.FindGameObjectWithTag(K.TAG_MODEL).GetComponent<Model>();
+        _gameManagerRef = GameObject.FindGameObjectWithTag(K.TAG_MANAGERS).GetComponent<GameManager>();
     }
 
     private void OnTriggerEnter2D(Collider2D col)
     {
         if (col.gameObject.layer == K.LAYER_PLAYER)
         {
-            _model.AddLives(1);
+            print("Life picked up");
+            _gameManagerRef.AddLivesToModel(1);
             Destroy(gameObject);
         }
+    }
 
+    private void Update()
+    {
+        lifeTime -= Time.deltaTime;
+        if (lifeTime<=0)
+        {
+            Destroy(gameObject);
+        }
     }
 }

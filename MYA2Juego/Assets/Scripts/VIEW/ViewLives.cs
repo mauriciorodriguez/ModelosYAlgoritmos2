@@ -11,18 +11,18 @@ public class ViewLives : MonoBehaviour, IObserver
     private void Start()
     {
         _lifesPrefabs = new List<GameObject>();
-        GameObject.FindGameObjectWithTag(K.TAG_MODEL).GetComponent<Model>().AddObserver(this);
+        GameObject.FindGameObjectWithTag(K.TAG_MANAGERS).GetComponent<GameManager>().AddObserverToModel(this);
     }
 
-    public void Notify(GameObject caller, string msg)
+    public void Notify(Model caller, string msg)
     {
         switch (msg)
         {
             case K.OBSERVER_PLAYER_ADD_LIVES:
-                UpdateLifes(caller.GetComponent<Model>().currentLives);
+                UpdateLifes(caller.currentLives);
                 break;
             case K.OBSERVER_PLAYER_LIVES:
-                UpdateLifes(caller.GetComponent<Model>().currentLives);
+                UpdateLifes(caller.currentLives);
                 break;
             default:
                 break;

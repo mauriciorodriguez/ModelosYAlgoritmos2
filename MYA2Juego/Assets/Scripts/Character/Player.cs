@@ -7,14 +7,14 @@ public class Player : MonoBehaviour, IDecoratorProxy, IObserver
 {
     public GameObject explosion;
 
-    public IDecoratorSecondShip SecondShip;
+    public DecoratorSecondShip SecondShip;
 
     public bool WithSecondShip = true;
 
     void Start()
     {
         SecondShip.gameObject.SetActive(false);
-        GameObject.FindGameObjectWithTag(K.TAG_MODEL).GetComponent<Model>().AddObserver(this);
+        GameObject.FindGameObjectWithTag(K.TAG_MANAGERS).GetComponent<GameManager>().AddObserverToModel(this);
     }
 
     /*void OnTriggerEnter2D(Collider2D coll)
@@ -78,16 +78,21 @@ public class Player : MonoBehaviour, IDecoratorProxy, IObserver
             SecondShip = null;
         }
         Destroy(gameObject);
+        GameObject.FindGameObjectWithTag(K.TAG_MANAGERS).GetComponent<GameManager>().facade.waitSeconds = 0;
     }
-    public void Notify(GameObject caller, string msg)
+    public void Notify(Model caller, string msg)
     {
         switch (msg)
         {
             case K.OBSERVER_PLAYER_ADD_LIVES:
-                var tempLives = caller.GetComponent<Model>().currentLives;
-                var tempMaxLives = caller.GetComponent<Model>().maxLives;
+                var tempLives = caller.currentLives;
+                var tempMaxLives = caller.maxLives;
                 if (tempLives == tempMaxLives) ExtraShip();
                 if (tempLives <= 0) DestroyShip();
+                break;
+            case K.OBSERVER_PLAYER_LIVES:
+                var tempCurrentLives = caller.currentLives;
+                if (tempCurrentLives <= 0) DestroyShip();
                 break;
             default:
                 break;

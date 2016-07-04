@@ -2,7 +2,7 @@
 using System.Collections;
 using UnityEngine.Sprites;
 
-public class IDecoratorSecondShip: MonoBehaviour, IDecoratorProxy
+public class DecoratorSecondShip: MonoBehaviour, IDecoratorProxy
 {
     public GameObject master;
     public bool flagDestroy;
